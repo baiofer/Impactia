@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableHighlight, NativeEventEmitter, NativeModules, ListView, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, TouchableHighlight, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert } from 'react-native'
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
+//Imports from Firebase
+//import * as firebase from 'firebase'
+import firebase from '@firebase/app'
+import '@firebase/auth'
+import '@firebase/database'
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => {
     r1 !== r2
@@ -20,11 +25,12 @@ export default class ReadCounter extends Component {
             connected: false,
             counterIsReaded: false,
             counterReaded: [],
-            valueOfCounter: 0
+            valueOfCounter: 0,
+            userUid: ''
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         BleManager.start({ showAlert: false })
             .then( () => {
                 console.log('Módulo inicilizado')
@@ -35,6 +41,14 @@ export default class ReadCounter extends Component {
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
+
+        await firebase.auth().onAuthStateChanged( (user) => {
+            if (user !== null) {
+              this.setState({
+                userUid: user.uid,
+              })
+            }
+          })
     }
 
     componentWillUnmount() {
@@ -112,6 +126,23 @@ export default class ReadCounter extends Component {
         }
         //Return only an array with digits valids
         return result
+    }
+
+    saveCounterReaded() {
+        value = this.state.valueOfCounter
+        userUid = this.state.userUid
+        firebase.database().ref('Client1/Users/' + userUid).push(value)
+        .then( () => {
+            Alert.alert(
+                'Counter saved',
+                value)
+        })
+        .catch( (error) => {
+            Alert.alert(
+                'Error saving counter',
+                error)
+        })
+        
     }
 
     test(peripheral) {
@@ -216,13 +247,15 @@ export default class ReadCounter extends Component {
                                     .catch( (error) => {
                                         console.log('ErrorReading: ', error)
                                     })
-                                    //When counter is readed, we put counter to 0
                                     setTimeout( () => {
+
                                         const counterValue = this.valueOfCounter(counterReaded)
                                         this.setState({
                                             counterIsReaded: true,
                                             valueOfCounter: counterValue,
                                         })
+                                        //When counter is readed, I send to firebase his value and  we put counter to 0
+                                        this.saveCounterReaded()
                                         //Write characteristics
                                         BleManager.write(per, ser, cha1, data)
                                         .catch( (error) => {
