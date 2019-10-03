@@ -30,7 +30,9 @@ export default class Adjust extends Component {
             counterIsReaded: false,
             counterReaded: [],
             valueOfCounter: 0,
-            userUid: ''
+            userUid: '',
+            systemToRead: '',
+            reloadComponent: false,
         }
     }
 
@@ -45,7 +47,6 @@ export default class Adjust extends Component {
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-        
         //Para coger el userUid, lo hago desde firebase o lo puedo hacer desde AsyncStorage cuando lo implemente
         await firebase.auth().onAuthStateChanged( (user) => {
             if (user !== null) {
@@ -109,10 +110,24 @@ export default class Adjust extends Component {
     }
 
     itemSelected(item) {
+        if (this.state.scanning) return null
+        const itemToSave = `${item.advertising.localName} \n ${item.id}`
         Alert.alert(
             'Seleccionado sistema',
-            item.advertising.localName,
+            itemToSave,
+            [{
+                text:'OK',
+                onPress: () => this.changeReload(item.id),
+            }],
         )
+    }
+
+    changeReload(item) {
+        const reld = !this.state.reloadComponent
+        this.setState({
+            reloadComponent: reld,
+            systemToRead: item
+        })
     }
 
     //We look for only the client sistem.
@@ -171,6 +186,42 @@ export default class Adjust extends Component {
         }
     }
 
+    renderScanButton(dataSource) {
+        if (this.state.systemToRead !== '') {
+            return(
+                <Text style={{ color: '#FE8000' }}>Ya existe un equipo enlazado { this.state.systemToRead }</Text>
+            )
+        } else {
+            return(
+                <View style={ styles.container }>
+                    <AppButton
+                        bgColor='#FE8000'
+                        onPress={ () => this.startScan()}
+                        label='Buscar y enlazar equipo'
+                        labelColor='white'
+                        iconColor='white'
+                    />
+                    <ListView 
+                        enableEmptySections={ true }
+                        dataSource={ dataSource }
+                        renderRow={ (item) => this.renderItem(item) }
+                    />
+                </View>
+            )
+        }
+    }
+
+    renderListView(dataSource) {
+        
+        if (this.state.systemToRead === '') {
+            <ListView 
+                enableEmptySections={ true }
+                dataSource={ dataSource }
+                renderRow={ (item) => this.renderItem(item) }
+            />
+        }
+    }
+
     render() {
         const list = Array.from(this.state.peripherals.values())
         //Look for element to connect
@@ -178,24 +229,10 @@ export default class Adjust extends Component {
         const dataSource = ds.cloneWithRows(newList)
         console.log('Array: ', list)
         console.log('NewList: ', newList)
-        const value = this.state.counterReaded
-        console.log('Value: ', value)
-
         return(
             <View style={ styles.container }>
                 <LogoImage />
-                <AppButton
-                    bgColor='#FE8000'
-                    onPress={ () => this.startScan()}
-                    label='Buscar y enlazar equipo'
-                    labelColor='white'
-                    iconColor='white'
-                />
-                <ListView 
-                    enableEmptySections={ true }
-                    dataSource={ dataSource }
-                    renderRow={ (item) => this.renderItem(item) }
-                />
+                { this.renderScanButton(dataSource) }
             </View>
         )
     }

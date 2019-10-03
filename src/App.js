@@ -133,7 +133,7 @@ export default class App extends Component {
             <Scene 
               key={'ReadCounter'}
               icon={ TabIcon }
-              iconName='book-reader'
+              iconName='glass'
               colorIcon='#FE8000'
               component={ ReadCounter }
               renderTitle={ this.renderTitle('Leer Contador') }
@@ -182,7 +182,7 @@ export default class App extends Component {
             <Scene 
               key={'Leer contador'}
               icon={ TabIcon }
-              iconName='readme'
+              iconName='glass'
               colorIcon='#FE8000'
               component={ ReadCounter }
               renderTitle={ this.renderTitle('Leer Contador') }

@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { StyleSheet, Text, View, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert } from 'react-native'
 //Bluetooth imports
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
@@ -15,19 +15,15 @@ import Moment from 'moment'
 import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
 
-const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => {
-    r1 !== r2
-}})
-
 const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
+
 
 
 export default class ReadCounter extends Component {
     constructor() {
         super()
         this.state = {
-            peripherals: new Map(),
             scanning: false,
             connected: false,
             counterIsReaded: false,
@@ -43,13 +39,7 @@ export default class ReadCounter extends Component {
             .then( () => {
                 console.log('Módulo inicilizado')
             })
-
-        this.handleDiscover = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral.bind(this))
-
-        this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
-
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-        
         //Para coger el userUid, lo hago desde firebase o lo puedo hacer desde AsyncStorage cuando lo implemente
         await firebase.auth().onAuthStateChanged( (user) => {
             if (user !== null) {
@@ -61,75 +51,18 @@ export default class ReadCounter extends Component {
     }
 
     componentWillUnmount() {
-        this.handleDiscover.remove()
-        this.handleStop.remove()
         this.handleDisconnect.remove()
-        this.handleUpdate.remove()
     }
-
-    handleDiscoverPeripheral(peripheral) {
-        var peripherals = this.state.peripherals
-        if (!peripherals.has(peripheral.id)) {
-            console.log('Got BLE peripheral ', peripheral)
-            peripherals.set(peripheral.id, peripheral)
-            this.setState({ peripherals })
-        }
-    }
-
-    handleStopScan() {
-        console.log('Scan is stopped')
-        this.setState({
-            scanning: false,
-        })
-    }
-
-    /*
-    handleDisconnectedPeripheral(data) {
-        console.log('Data: ', data)
-        let peripherals = this.state.peripherals
-        let peripheral = peripherals.get(data.peripheral)
-        if (peripheral) {
-            peripheral.connected = false
-            peripherals.set(peripheral.id, peripheral)
-            this.setState({ 
-                peripherals,
-                connected: false,
-                counterIsReaded: false,
-            })
-        }
-        console.log('Disconnected from ', data.peripheral)
-    }
-    */
     
     handleDisconnectedPeripheral(data) {
         console.log('Data: ', data)
-        //let peripherals = this.state.peripherals
-        //let peripheral = peripherals.get(data.peripheral)
-        //if (peripheral) {
-            //peripheral.connected = false
-            //peripherals.set(peripheral.id, peripheral)
-            this.setState({ 
-                //peripherals,
-                connected: false,
-                counterIsReaded: false,
-            })
-        //}
+        this.setState({ 
+            connected: false,
+            counterIsReaded: false,
+        })
         console.log('Disconnected from ', data.peripheral)
     }
-
-    startScan() {
-        if (!this.state.scanning) {
-            this.setState({ periferals: new Map()})
-            BleManager.scan([], 3, true)
-                .then( (results) => {
-                    console.log('Scanning ...')
-                    this.setState({
-                        scanning: true
-                    })
-                })
-        }
-    }
-
+    
     valueOfCounter(counterReaded) {
         //Count of digits valids in array (from [0] to "")
         var i = 0
@@ -170,7 +103,6 @@ export default class ReadCounter extends Component {
                 valueInHours,
                 [{
                     text:'OK',
-                    //onPress: () => this.test(peripheral),
                     onPress: () => this.test(),
                 }],
             )
@@ -192,188 +124,154 @@ export default class ReadCounter extends Component {
         return `${ hours } horas, ${ minutes } minutos, ${ seconds } segundos`
     }
 
-    //test(peripheral) {
     test() {
-        //console.log('Item to test: ', peripheral.name)
         if (this.state.scanning) return null
-        //if (peripheral) {
-        //if (this.state.connected) {
-            //If peripheral connected, we disconnect it
-            //if (peripheral.connected) {
-            if (this.state.connected) {
-                //BleManager.disconnect(peripheral.id)
-                BleManager.disconnect(this.state.systemToRead)
-                console.log('Hay que desconectar el equipo')
-            //If terminal not connected, we connect it
-            } else {
-                //BleManager.connect(peripheral.id)
-                BleManager.connect(this.state.systemToRead)
-                    .then( () => {
-                        //console.log('Connected to ', peripheral)
-                        console.log('Connected to ', this.state.systemToRead)
-                        //let peripherals = this.state.peripherals
-                        //let p= peripherals.get(peripheral.id)
-                        //if (p) {
-                            //p.connected = true
-                            //peripherals.set(peripheral.id, p)
-                            this.setState({ 
-                                //peripherals,
-                                connected: true,
-                            })
-                        //}
-                        //Before read and write Bluetooth module, we have to retrieve services
-                        //BleManager.retrieveServices(peripheral.id)
-                        BleManager.retrieveServices(this.state.systemToRead)
-                            .then( (peripheralInfo) => {
-                                //When services are retrieved, we read the counter
-                                console.log('Retrieved from ', peripheralInfo)
-                                //PeripheralId
-                                const per = peripheralInfo.id
-                                //serviceUUID
-                                const ser = peripheralInfo.characteristics[0].service
-                                //characteristicUUID
-                                const cha1 = peripheralInfo.characteristics[0].characteristic
-                                const cha2 = peripheralInfo.characteristics[1].characteristic
-                                const cha3 = peripheralInfo.characteristics[2].characteristic
-                                const cha4 = peripheralInfo.characteristics[3].characteristic
-                                const cha5 = peripheralInfo.characteristics[4].characteristic
-                                const cha6 = peripheralInfo.characteristics[5].characteristic
-                                const cha7 = peripheralInfo.characteristics[6].characteristic
-                                const cha8 = peripheralInfo.characteristics[7].characteristic
-                                //data
-                                const data = stringToBytes('0')
-                                //Read Counter
-                                console.log('Aqui leo de BIKE el Contador')
-                                var counterReaded = []
-                                BleManager.read(per, ser, cha1)
-                                    .then( (readData) => {
-                                        counterReaded[7] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha2)
-                                    .then( (readData) => {
-                                        counterReaded[6] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha3)
-                                    .then( (readData) => {
-                                        counterReaded[5] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha4)
-                                    .then( (readData) => {
-                                        counterReaded[4] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha5)
-                                    .then( (readData) => {
-                                        counterReaded[3] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha6)
-                                    .then( (readData) => {
-                                        counterReaded[2] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha7)
-                                    .then( (readData) => {
-                                        counterReaded[1] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                BleManager.read(per, ser, cha8)
-                                    .then( (readData) => {
-                                        counterReaded[0] = bytesToString(readData)
-                                    })
-                                    .catch( (error) => {
-                                        console.log('ErrorReading: ', error)
-                                    })
-                                    setTimeout( () => {
-
-                                        const counterValue = this.valueOfCounter(counterReaded)
-                                        this.setState({
-                                            counterIsReaded: true,
-                                            valueOfCounter: counterValue,
-                                        })
-                                        //When counter is readed, I send to firebase his value and  we put counter to 0
-                                        //this.saveCounterReaded(peripheral)
-                                        this.saveCounterReaded()
-                                        //Write characteristics
-                                        BleManager.write(per, ser, cha1, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha2, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha3, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha4, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha5, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha6, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha7, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        })
-                                        BleManager.write(per, ser, cha8, data)
-                                        .catch( (error) => {
-                                            console.log('ErrorWritting: ', error)
-                                        }) 
-                                    }, 3000)
+        //If peripheral connected, we disconnect it
+        if (this.state.connected) {
+            BleManager.disconnect(this.state.systemToRead)
+            console.log('Hay que desconectar el equipo')
+        //If terminal not connected, we connect it
+        } else {
+            BleManager.connect(this.state.systemToRead)
+                .then( () => {
+                    console.log('Connected to ', this.state.systemToRead)
+                    this.setState({ 
+                        connected: true,
+                    })
+                    //Before read and write Bluetooth module, we have to retrieve services
+                    BleManager.retrieveServices(this.state.systemToRead)
+                        .then( (peripheralInfo) => {
+                            //When services are retrieved, we read the counter
+                            console.log('Retrieved from ', peripheralInfo)
+                            //PeripheralId
+                            const per = peripheralInfo.id
+                            //serviceUUID
+                            const ser = peripheralInfo.characteristics[0].service
+                            //characteristicUUID
+                            const cha1 = peripheralInfo.characteristics[0].characteristic
+                            const cha2 = peripheralInfo.characteristics[1].characteristic
+                            const cha3 = peripheralInfo.characteristics[2].characteristic
+                            const cha4 = peripheralInfo.characteristics[3].characteristic
+                            const cha5 = peripheralInfo.characteristics[4].characteristic
+                            const cha6 = peripheralInfo.characteristics[5].characteristic
+                            const cha7 = peripheralInfo.characteristics[6].characteristic
+                            const cha8 = peripheralInfo.characteristics[7].characteristic
+                            //data
+                            const data = stringToBytes('0')
+                            //Read Counter
+                            console.log('Aqui leo de BIKE el Contador')
+                            var counterReaded = []
+                            BleManager.read(per, ser, cha1)
+                                .then( (readData) => {
+                                    counterReaded[7] = bytesToString(readData)
                                 })
                                 .catch( (error) => {
-                                    console.log('ErrorRetrieve: ', error)
+                                    console.log('ErrorReading: ', error)
                                 })
-                        })
-                        .catch( (error) => {
-                            console.log('ErrorConnect: ', error)
-                        })
-            }
-        //}
-    }
-
-    //We look for only the client sistem.
-    lookForBikeElement(data) {
-        if (data === []) return []
-        console.log('Lista: ', data)
-        let newList = []
-        data.forEach( (element) => {
-            if (element.advertising.localName === 'BIKE' || element.name === 'Arduino') {
-                newList.push(element)
-            }
-        })
-        return newList
+                            BleManager.read(per, ser, cha2)
+                                .then( (readData) => {
+                                    counterReaded[6] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha3)
+                                .then( (readData) => {
+                                    counterReaded[5] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha4)
+                                .then( (readData) => {
+                                    counterReaded[4] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha5)
+                                .then( (readData) => {
+                                    counterReaded[3] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha6)
+                                .then( (readData) => {
+                                    counterReaded[2] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha7)
+                                .then( (readData) => {
+                                    counterReaded[1] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                            BleManager.read(per, ser, cha8)
+                                .then( (readData) => {
+                                    counterReaded[0] = bytesToString(readData)
+                                })
+                                .catch( (error) => {
+                                    console.log('ErrorReading: ', error)
+                                })
+                                setTimeout( () => {
+                                    const counterValue = this.valueOfCounter(counterReaded)
+                                    this.setState({
+                                        counterIsReaded: true,
+                                        valueOfCounter: counterValue,
+                                    })
+                                    //When counter is readed, I send to firebase his value and  we put counter to 0
+                                    this.saveCounterReaded()
+                                    //Write characteristics
+                                    BleManager.write(per, ser, cha1, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha2, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha3, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha4, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha5, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha6, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha7, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    })
+                                    BleManager.write(per, ser, cha8, data)
+                                    .catch( (error) => {
+                                        console.log('ErrorWritting: ', error)
+                                    }) 
+                                }, 3000)
+                            })
+                            .catch( (error) => {
+                                console.log('ErrorRetrieve: ', error)
+                            })
+                    })
+                .catch( (error) => {
+                    console.log('ErrorConnect: ', error)
+                })
+        }
     }
 
     //We render the activity indicator if necesary
-    //renderActivity(item) {
     renderActivity() {
-        //if (this.state.scanning || (item.connected && !this.state.counterIsReaded)) {
         if (this.state.scanning || (this.state.connected && !this.state.counterIsReaded)) {
             return(
                 <ActivityIndicator 
@@ -384,35 +282,6 @@ export default class ReadCounter extends Component {
             )
         }
         return null
-    }
-
-    //We render the system to read
-    renderItem(item) {
-        console.log('Item a conectar: ', item)
-        const color = item.connected ? 'green' : '#FE8000'
-        return(
-            <View>
-                <AppButton
-                    bgColor={ color }
-                    onPress={ () => this.test(item)}
-                    label='Leer Contador'
-                    labelColor='white'
-                    iconColor='white'
-                />
-                { this.renderActivity(item) }
-            </View>
-            
-        )
-    }
-
-    renderListView(dataSource) {
-        if (!this.state.scanning) {
-            <ListView 
-                enableEmptySections={ true }
-                dataSource={ dataSource }
-                renderRow={ (item) => this.renderItem(item) }
-            />
-        }
     }
 
     render() {
@@ -427,42 +296,10 @@ export default class ReadCounter extends Component {
                     labelColor='white'
                     iconColor='white'
                 />
-                { /*this.renderActivity(item)*/ }
                 { this.renderActivity() }
             </View>
         )
     }
-
-    /*
-    render() {
-        const list = Array.from(this.state.peripherals.values())
-        //Look for element to connect
-        const newList = this.lookForBikeElement(list)
-        const dataSource = ds.cloneWithRows(newList)
-        console.log('Array: ', list)
-        console.log('NewList: ', newList)
-        const value = this.state.counterReaded
-        console.log('Value: ', value)
-
-        return(
-            <View style={ styles.container }>
-                <LogoImage />
-                <AppButton
-                    bgColor='#FE8000'
-                    onPress={ () => this.startScan()}
-                    label='Buscar y enlazar equipo'
-                    labelColor='white'
-                    iconColor='white'
-                />
-                <ListView 
-                    enableEmptySections={ true }
-                    dataSource={ dataSource }
-                    renderRow={ (item) => this.renderItem(item) }
-                />
-            </View>
-        )
-    }
-    */
 }
 
 const styles = StyleSheet.create({
