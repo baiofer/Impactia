@@ -43,7 +43,7 @@ export default class Menu extends Component {
     //Renders
     render() {
         return(
-            <BackgroundImage source={ require('../resources/Background_Image.png') }>
+            <BackgroundImage>
                 <View style={ styles.container }>
                     <LogoImage />
                     <AppButton

@@ -1,7 +1,7 @@
 //React imports
 import React, {Component} from 'react';
 //React Native imports
-import { StyleSheet, View, Text, Alert, YellowBox } from 'react-native';
+import { StyleSheet, View, Text, Alert, YellowBox, TouchableOpacity } from 'react-native';
 //Components imports
 import SignIn from './scenes/SignIn';
 import Register from './scenes/Register'
@@ -205,6 +205,20 @@ export default class App extends Component {
               navigationBarStyle={ styles.navBar }
             />
           </Scene>
+          <Scene
+            key={ 'SignIn' }
+            component={ SignIn }
+            navTransparent={ true }
+            title='Iniciar sesión'
+            titleStyle={ styles.title }
+          />
+          <Scene
+            key={ 'Register' }
+            component={ Register }
+            navTransparent={ true }
+            title='Registrarse'
+            titleStyle={ styles.title }
+          />
           <Scene
             key={ 'Menu' }
             component={ Menu }
