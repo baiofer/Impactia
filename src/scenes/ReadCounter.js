@@ -130,7 +130,7 @@ export default class ReadCounter extends Component {
         return result
     }
 
-    saveCounterReaded() {
+    saveCounterReaded(peripheral) {
         value = this.state.valueOfCounter
         userUid = this.state.userUid
         const dateNew = Moment().add(1, 'days')
@@ -139,15 +139,19 @@ export default class ReadCounter extends Component {
         firebase.database().ref('Client1/Users/' + userUid).push(value)
         .then( () => {
             Alert.alert(
-                'Counter saved. Date',
-                date)
+                'Valor leido del contador',
+                value,
+                [{
+                    text:'OK',
+                    onPress: () => this.test(peripheral),
+                }],
+            )
         })
         .catch( (error) => {
             Alert.alert(
                 'Error saving counter',
                 error)
         })
-        
     }
 
     test(peripheral) {
@@ -260,7 +264,7 @@ export default class ReadCounter extends Component {
                                             valueOfCounter: counterValue,
                                         })
                                         //When counter is readed, I send to firebase his value and  we put counter to 0
-                                        this.saveCounterReaded()
+                                        this.saveCounterReaded(peripheral)
                                         //Write characteristics
                                         BleManager.write(per, ser, cha1, data)
                                         .catch( (error) => {
