@@ -1,14 +1,19 @@
+//React imports
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, TouchableHighlight, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert } from 'react-native'
+//React Native imports
+import { StyleSheet, Text, View, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert } from 'react-native'
+//Bluetooth imports
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
 //Imports from Firebase
-//import * as firebase from 'firebase'
 import firebase from '@firebase/app'
 import '@firebase/auth'
 import '@firebase/database'
 //Moment imports (Date)
 import Moment from 'moment'
+//Components imports
+import LogoImage from '../components/LogoImage'
+import AppButton from '../components/AppButton'
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => {
     r1 !== r2
@@ -43,7 +48,8 @@ export default class ReadCounter extends Component {
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-
+        
+        //Para coger el userUid, lo hago desde firebase o lo puedo hacer desde AsyncStorage cuando lo implemente
         await firebase.auth().onAuthStateChanged( (user) => {
             if (user !== null) {
               this.setState({
@@ -132,15 +138,16 @@ export default class ReadCounter extends Component {
 
     saveCounterReaded(peripheral) {
         value = this.state.valueOfCounter
+        valueInHours = this.passCounterToHours(value)
         userUid = this.state.userUid
-        const dateNew = Moment().add(1, 'days')
-        const date = dateNew.format('YYYY-MM-DDTHH:MM:SS') + '+01:00'
-        console.log('Date: ', date)
-        firebase.database().ref('Client1/Users/' + userUid).push(value)
+        const dateNew = Moment()
+        const date = dateNew.format('YYYY-MM-DD')
+        const hour = dateNew.format('HH:MM:SS')
+        firebase.database().ref('Client1/Users/' + userUid + '/lecturas/' + date + '/' + hour).set(value)
         .then( () => {
             Alert.alert(
                 'Valor leido del contador',
-                value,
+                valueInHours,
                 [{
                     text:'OK',
                     onPress: () => this.test(peripheral),
@@ -152,6 +159,16 @@ export default class ReadCounter extends Component {
                 'Error saving counter',
                 error)
         })
+    }
+
+    passCounterToHours(value) {
+        //We pass the counter to time (days, hours, minutes and seconds)
+        console.log('RenderCounterValue: ', value)
+        const seconds = value % 60
+        const minutesLeft = Math.trunc(value / 60)
+        const minutes = minutesLeft % 60
+        const hours = Math.trunc(minutesLeft / 60)
+        return `${ hours } horas, ${ minutes } minutos, ${ seconds } segundos`
     }
 
     test(peripheral) {
@@ -328,7 +345,11 @@ export default class ReadCounter extends Component {
     renderActivity(item) {
         if (this.state.scanning || (item.connected && !this.state.counterIsReaded)) {
             return(
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator 
+                    size="large" 
+                    color="#FE8000"
+                    style={ {marginTop: 20 } } 
+                />
             )
         }
         return null
@@ -337,20 +358,16 @@ export default class ReadCounter extends Component {
     //We render the system to read
     renderItem(item) {
         console.log('Item a conectar: ', item)
-        const color = item.connected ? 'green' : '#ccc'
+        const color = item.connected ? 'green' : '#FE8000'
         return(
             <View>
-                <TouchableHighlight
-                style={ styles.button1 }
-                onPress={ () => this.test(item) }
-                >
-                    <View
-                        style={ [styles.row, { backgroundColor: color }]}
-                    >
-                        <Text style={ styles.item1 }>Enlazado equipo { item.id } </Text>
-                        <Text style={ styles.item1 }>Leer CONTADOR</Text>
-                    </View> 
-                </TouchableHighlight>
+                <AppButton
+                    bgColor={ color }
+                    onPress={ () => this.test(item)}
+                    label='Leer Contador'
+                    labelColor='white'
+                    iconColor='white'
+                />
                 { this.renderActivity(item) }
             </View>
             
@@ -367,22 +384,6 @@ export default class ReadCounter extends Component {
         }
     }
 
-    renderCounter(value) {
-        //We pass the counter to time (days, hours, minutes and seconds)
-        console.log('RenderCounterValue: ', value)
-        const seconds = value % 60
-        console.log('Seconds: ', seconds)
-        const minutes = (seconds * 60) % 60
-        console.log('Minutes: ', minutes)
-        const hours = (minutes * 60) % 60
-        console.log('Hours: ', hours)
-        const days = (hours * 60) / 24
-        console.log('Days: ', days)
-        return (
-            <Text>COUNTER VALUE: { value }</Text>
-        )
-    }
-
     render() {
         const list = Array.from(this.state.peripherals.values())
         //Look for element to connect
@@ -395,18 +396,20 @@ export default class ReadCounter extends Component {
 
         return(
             <View style={ styles.container }>
-                <TouchableHighlight
-                    style={ styles.button }
+                <LogoImage />
+                <AppButton
+                    bgColor='#FE8000'
                     onPress={ () => this.startScan()}
-                >
-                    <Text>Buscar y enlazar equipo</Text>
-                </TouchableHighlight>
+                    label='Buscar y enlazar equipo'
+                    labelColor='white'
+                    iconColor='white'
+                />
                 <ListView 
                     enableEmptySections={ true }
                     dataSource={ dataSource }
                     renderRow={ (item) => this.renderItem(item) }
                 />
-                { this.renderCounter(this.state.valueOfCounter) }   
+                { /*this.renderCounter(this.state.valueOfCounter)*/ }   
             </View>
         )
     }
@@ -416,34 +419,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        width: 300,
+        justifyContent: 'center',
+        alignItems: 'center',
         height: 30,
     },
-    button: {
-        marginTop: 40,
-        margin: 20,
-        padding: 20,
-        backgroundColor: '#ccc',
-    },
-    button1: {
-        marginTop: 10,
-        margin: 5,
-        padding: 5,
-        backgroundColor: '#ccc',
-    },
-    item1: {
-        fontSize: 12,
-        textAlign: 'center',
-        color: '#333333',
-        padding: 5
-    },
-    item2: {
-        fontSize: 8,
-        textAlign: 'center',
-        color: '#333333',
-        padding: 5
-    },
-    row: {
-        margin: 5,
-    }
 })

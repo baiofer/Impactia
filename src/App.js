@@ -126,8 +126,8 @@ export default class App extends Component {
             navTransparent={ true }
             navigationBarStyle={ styles.navBar }
             default={ 'ReadCounter' }
-            activeTintColor='grey'
-            inactiveTintColor='#fff'
+            activeTintColor='#FE8000'
+            inactiveTintColor='white'
             renderLeftButton={ this.renderMenuButton() }
           >
             <Scene 
@@ -175,21 +175,21 @@ export default class App extends Component {
             navTransparent={ true }
             navigationBarStyle={ styles.navBar }
             default={ 'ReadCounter' }
-            activeTintColor='grey'
-            inactiveTintColor='#fff'
+            activeTintColor='#FE8000'
+            inactiveTintColor='white'
             renderLeftButton={ this.renderMenuButton() }
           >
             <Scene 
-              key={'ReadCounter'}
+              key={'Leer contador'}
               icon={ TabIcon }
-              iconName='book-reader'
+              iconName='readme'
               colorIcon='#FE8000'
               component={ ReadCounter }
               renderTitle={ this.renderTitle('Leer Contador') }
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'MyMouvements'}
+              key={'Mis movimientos'}
               icon={ TabIcon }
               iconName='list'
               colorIcon='#FE8000'
@@ -198,7 +198,7 @@ export default class App extends Component {
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'Adjust'}
+              key={'Ajustes'}
               icon={ TabIcon }
               iconName='wrench'
               colorIcon='#FE8000'
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   navBar: {
-    backgroundColor: '#FE8000',
+    backgroundColor: 'white',
   },
   cartButton: {
     paddingLeft: 20,
@@ -267,6 +267,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tabBar: {
-    backgroundColor: '#FE8000',
+    backgroundColor: 'white',
+    height: 70,
   },
 });
