@@ -152,7 +152,7 @@ export default class ReadCounter extends Component {
 
     test(peripheral) {
         console.log('Item to test: ', peripheral.name)
-        while (this.state.scanning) {}
+        if (this.state.scanning) return null
         if (peripheral) {
             //If peripheral connected, we disconnect it
             if (peripheral.connected) {
