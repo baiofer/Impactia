@@ -33,7 +33,8 @@ export default class ReadCounter extends Component {
             counterIsReaded: false,
             counterReaded: [],
             valueOfCounter: 0,
-            userUid: ''
+            userUid: '',
+            systemToRead: '9E39793E-EEDE-49FC-2166-68C760954602'
         }
     }
 
@@ -82,6 +83,7 @@ export default class ReadCounter extends Component {
         })
     }
 
+    /*
     handleDisconnectedPeripheral(data) {
         console.log('Data: ', data)
         let peripherals = this.state.peripherals
@@ -95,6 +97,23 @@ export default class ReadCounter extends Component {
                 counterIsReaded: false,
             })
         }
+        console.log('Disconnected from ', data.peripheral)
+    }
+    */
+    
+    handleDisconnectedPeripheral(data) {
+        console.log('Data: ', data)
+        //let peripherals = this.state.peripherals
+        //let peripheral = peripherals.get(data.peripheral)
+        //if (peripheral) {
+            //peripheral.connected = false
+            //peripherals.set(peripheral.id, peripheral)
+            this.setState({ 
+                //peripherals,
+                connected: false,
+                counterIsReaded: false,
+            })
+        //}
         console.log('Disconnected from ', data.peripheral)
     }
 
@@ -136,7 +155,8 @@ export default class ReadCounter extends Component {
         return result
     }
 
-    saveCounterReaded(peripheral) {
+    //saveCounterReaded(peripheral) {
+    saveCounterReaded() {
         value = this.state.valueOfCounter
         valueInHours = this.passCounterToHours(value)
         userUid = this.state.userUid
@@ -150,7 +170,8 @@ export default class ReadCounter extends Component {
                 valueInHours,
                 [{
                     text:'OK',
-                    onPress: () => this.test(peripheral),
+                    //onPress: () => this.test(peripheral),
+                    onPress: () => this.test(),
                 }],
             )
         })
@@ -171,31 +192,38 @@ export default class ReadCounter extends Component {
         return `${ hours } horas, ${ minutes } minutos, ${ seconds } segundos`
     }
 
-    test(peripheral) {
-        console.log('Item to test: ', peripheral.name)
+    //test(peripheral) {
+    test() {
+        //console.log('Item to test: ', peripheral.name)
         if (this.state.scanning) return null
-        if (peripheral) {
+        //if (peripheral) {
+        //if (this.state.connected) {
             //If peripheral connected, we disconnect it
-            if (peripheral.connected) {
-                BleManager.disconnect(peripheral.id)
+            //if (peripheral.connected) {
+            if (this.state.connected) {
+                //BleManager.disconnect(peripheral.id)
+                BleManager.disconnect(this.state.systemToRead)
                 console.log('Hay que desconectar el equipo')
             //If terminal not connected, we connect it
             } else {
-                BleManager.connect(peripheral.id)
+                //BleManager.connect(peripheral.id)
+                BleManager.connect(this.state.systemToRead)
                     .then( () => {
-                        console.log('Connected to ', peripheral)
-                        let peripherals = this.state.peripherals
-                        let p= peripherals.get(peripheral.id)
-                        if (p) {
-                            p.connected = true
-                            peripherals.set(peripheral.id, p)
+                        //console.log('Connected to ', peripheral)
+                        console.log('Connected to ', this.state.systemToRead)
+                        //let peripherals = this.state.peripherals
+                        //let p= peripherals.get(peripheral.id)
+                        //if (p) {
+                            //p.connected = true
+                            //peripherals.set(peripheral.id, p)
                             this.setState({ 
-                                peripherals,
+                                //peripherals,
                                 connected: true,
                             })
-                        }
+                        //}
                         //Before read and write Bluetooth module, we have to retrieve services
-                        BleManager.retrieveServices(peripheral.id)
+                        //BleManager.retrieveServices(peripheral.id)
+                        BleManager.retrieveServices(this.state.systemToRead)
                             .then( (peripheralInfo) => {
                                 //When services are retrieved, we read the counter
                                 console.log('Retrieved from ', peripheralInfo)
@@ -281,7 +309,8 @@ export default class ReadCounter extends Component {
                                             valueOfCounter: counterValue,
                                         })
                                         //When counter is readed, I send to firebase his value and  we put counter to 0
-                                        this.saveCounterReaded(peripheral)
+                                        //this.saveCounterReaded(peripheral)
+                                        this.saveCounterReaded()
                                         //Write characteristics
                                         BleManager.write(per, ser, cha1, data)
                                         .catch( (error) => {
@@ -325,7 +354,7 @@ export default class ReadCounter extends Component {
                             console.log('ErrorConnect: ', error)
                         })
             }
-        }
+        //}
     }
 
     //We look for only the client sistem.
@@ -342,8 +371,10 @@ export default class ReadCounter extends Component {
     }
 
     //We render the activity indicator if necesary
-    renderActivity(item) {
-        if (this.state.scanning || (item.connected && !this.state.counterIsReaded)) {
+    //renderActivity(item) {
+    renderActivity() {
+        //if (this.state.scanning || (item.connected && !this.state.counterIsReaded)) {
+        if (this.state.scanning || (this.state.connected && !this.state.counterIsReaded)) {
             return(
                 <ActivityIndicator 
                     size="large" 
@@ -385,6 +416,25 @@ export default class ReadCounter extends Component {
     }
 
     render() {
+        const color = this.state.connected ? 'green' : '#FE8000'
+        return(
+            <View style={ styles.container }>
+                <LogoImage />
+                <AppButton
+                    bgColor={ color }
+                    onPress={ () => this.test()}
+                    label='Leer Contador'
+                    labelColor='white'
+                    iconColor='white'
+                />
+                { /*this.renderActivity(item)*/ }
+                { this.renderActivity() }
+            </View>
+        )
+    }
+
+    /*
+    render() {
         const list = Array.from(this.state.peripherals.values())
         //Look for element to connect
         const newList = this.lookForBikeElement(list)
@@ -409,10 +459,10 @@ export default class ReadCounter extends Component {
                     dataSource={ dataSource }
                     renderRow={ (item) => this.renderItem(item) }
                 />
-                { /*this.renderCounter(this.state.valueOfCounter)*/ }   
             </View>
         )
     }
+    */
 }
 
 const styles = StyleSheet.create({
