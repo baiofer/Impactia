@@ -124,6 +124,7 @@ export default class App extends Component {
             hideNavBar={ false }
             tabBarStyle={ styles.tabBar }
             navTransparent={ true }
+            navigationBarStyle={ styles.navBar }
             default={ 'ReadCounter' }
             activeTintColor='grey'
             inactiveTintColor='#fff'
@@ -172,6 +173,7 @@ export default class App extends Component {
             hideNavBar={ false }
             tabBarStyle={ styles.tabBar }
             navTransparent={ true }
+            navigationBarStyle={ styles.navBar }
             default={ 'ReadCounter' }
             activeTintColor='grey'
             inactiveTintColor='#fff'
@@ -256,12 +258,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   navBar: {
-    backgroundColor: '#BEBBBB',
+    backgroundColor: '#FE8000',
   },
   cartButton: {
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  tabBar: {
+    backgroundColor: '#FE8000',
   },
 });
