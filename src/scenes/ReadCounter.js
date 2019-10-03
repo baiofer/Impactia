@@ -322,7 +322,7 @@ export default class ReadCounter extends Component {
 
     //We render the activity indicator if necesary
     renderActivity(item) {
-        if (item.connected && !this.state.counterIsReaded) {
+        if (this.state.scanning || (item.connected && !this.state.counterIsReaded)) {
             return(
                 <ActivityIndicator size="large" color="#0000ff" />
             )
