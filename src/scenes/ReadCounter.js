@@ -7,6 +7,8 @@ import { stringToBytes, bytesToString } from 'convert-string'
 import firebase from '@firebase/app'
 import '@firebase/auth'
 import '@firebase/database'
+//Moment imports (Date)
+import Moment from 'moment'
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => {
     r1 !== r2
@@ -131,11 +133,14 @@ export default class ReadCounter extends Component {
     saveCounterReaded() {
         value = this.state.valueOfCounter
         userUid = this.state.userUid
+        const dateNew = Moment().add(1, 'days')
+        const date = dateNew.format('YYYY-MM-DDTHH:MM:SS') + '+01:00'
+        console.log('Date: ', date)
         firebase.database().ref('Client1/Users/' + userUid).push(value)
         .then( () => {
             Alert.alert(
-                'Counter saved',
-                value)
+                'Counter saved. Date',
+                date)
         })
         .catch( (error) => {
             Alert.alert(

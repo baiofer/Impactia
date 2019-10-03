@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
     "convert-string": "^0.1.0",
     "email-validator": "^2.0.4",
     "firebase": "^7.0.0",
+    "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-native": "0.59.9",

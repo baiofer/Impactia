@@ -10,10 +10,7 @@ import AppButton from '../components/AppButton'
 import { Actions } from 'react-native-router-flux'
 //Imports from Firebase
 import * as firebase from 'firebase'
-//PropTypes imports
-import PropTypes from 'prop-types'
-//Componets import
-import * as Utils from '../utils'
+
 
 
 export default class Menu extends Component {
