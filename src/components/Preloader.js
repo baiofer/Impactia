@@ -12,7 +12,11 @@ export default class Preloader extends Component {
         return(
             <View style={ styles.preloader }>
                 <LogoImage/>
-                <ActivityIndicator style={{ height: 80 }} size='large' />
+                <ActivityIndicator 
+                    style={{ height: 80 }} 
+                    size='large' 
+                    color="#FE8000"
+                />
             </View>
         )
     }
@@ -25,6 +29,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: height,
-        backgroundColor: '#242935'
+        backgroundColor: 'white'
     }
 })

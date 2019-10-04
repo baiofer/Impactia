@@ -96,7 +96,12 @@ export default class ReadCounter extends Component {
         const dateNew = Moment()
         const date = dateNew.format('YYYY-MM-DD')
         const hour = dateNew.format('HH:MM:SS')
-        firebase.database().ref('Client1/Users/' + userUid + '/lecturas/' + date + '/' + hour).set(value)
+        const reading = {
+            fecha: date,
+            hora: hour,
+            contador: value
+        }
+        firebase.database().ref('Client1/Users/' + userUid + '/lecturas/' + date + '_' + hour).set(reading)
         .then( () => {
             Alert.alert(
                 'Valor leido del contador',
