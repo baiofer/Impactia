@@ -34,27 +34,47 @@ export default class MyMouvements extends Component {
             })
     }
 
+    selectInformation() {
+        //Aqui tratare la informacion para presentarla
+        readings = this.state.readings
+        console.log('Select_readings: ', readings)
+        if (readings === []) return
+        var totalsCounter = [{counter: 0, month: 0}, {counter: 0, month: 1}, {counter: 0, month: 2}, {counter: 0, month: 3}, {counter: 0, month: 4}, {counter: 0, month: 5}, {counter: 0, month: 6}, {counter: 0, month: 7}, {counter: 0, month: 8}, {counter: 0, month: 9}, {counter: 0, month: 10}, {counter: 0, month: 11}, {counter: 0, month: 12}]
+        readings.forEach( (read) => {
+            //const read = item.item
+            console.log('Select_read: ', read)
+            const indexMonth = parseInt(read.fecha.substring(5, 7))
+            console.log('Select_indexMonth: ', indexMonth)
+            totalsCounter[indexMonth] = {
+                counter: totalsCounter[indexMonth].counter + read.contador,
+                month: indexMonth
+            }
+            console.log('Select_totalsCounter[]: ', totalsCounter[indexMonth])
+        })
+        console.log('Total por meses: ', totalsCounter)
+        return totalsCounter
+    }
+
     renderReading(item) {
-        console.log('renderReading: ', item)
-        const reading = item.item
+        console.log('ItemToShow: ', item)
+        if (item.item.counter === 0) return null
         return(
-            <View style={ styles.container }>
-                <Text style={ styles.textStyle }>{ reading.fecha }</Text>
-                <Text style={ styles.textStyle }>{ reading.hora }</Text>
-                <Text style={ styles.textStyle }>{ reading.contador }</Text>
-            </View>
+            
+                <Text style={ styles.textStyle }>{ item.item.month }   { item.item.counter }</Text>
+            
         )
     }
 
     render() {
+        const info = this.selectInformation()
         return(
             <View style={ styles.container }>
                 <FlatList 
                     style={{ marginTop: 10 }}
-                    data={ this.state.readings }
+                    data={ info }
                     renderItem={ (item) => this.renderReading(item) }
                     extraData={ this.state }
-                    keyExtractor={ (item) => item.hora }
+                    keyExtractor={ (item) => item.month.toString() }
                 />  
             </View>
         )
@@ -69,4 +89,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 30,
     },
+    item: {
+        backgroundColor: 'blue',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 50,
+        marginTop: 20,
+    },
+    textStyle: {
+        color: 'black',
+    }
 })

@@ -95,7 +95,7 @@ export default class ReadCounter extends Component {
         userUid = this.state.userUid
         const dateNew = Moment()
         const date = dateNew.format('YYYY-MM-DD')
-        const hour = dateNew.format('HH:MM:SS')
+        const hour = dateNew.format('hh:mm:ss')
         const reading = {
             fecha: date,
             hora: hour,
