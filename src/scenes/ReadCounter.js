@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert } from 'react-native'
+import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Dimensions } from 'react-native'
 //Bluetooth imports
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
@@ -14,6 +14,7 @@ import Moment from 'moment'
 //Components imports
 import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
+import AppInput from '../components/AppInput'
 
 const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
@@ -30,7 +31,9 @@ export default class ReadCounter extends Component {
             counterReaded: [],
             valueOfCounter: 0,
             userUid: '',
-            systemToRead: '9E39793E-EEDE-49FC-2166-68C760954602'
+            systemToRead: '9E39793E-EEDE-49FC-2166-68C760954602',
+            date: '',
+            dateError: 'Error'
         }
     }
 
@@ -291,9 +294,25 @@ export default class ReadCounter extends Component {
 
     render() {
         const color = this.state.connected ? 'green' : '#FE8000'
+        const dateNow = Moment()
+        const actualDate = dateNow.format('YYYY-MM-DD')
+        const actualYear = parseInt(actualDate.substring(0, 4))
+        const actualMonth = parseInt(actualDate.substring(5, 7))
+        const actualDay = parseInt(actualDate.substring(8, 10))
+        const actual = actualDay + ' - ' + actualMonth + ' - ' + actualYear
         return(
             <View style={ styles.container }>
                 <LogoImage />
+                <AppInput
+                    placeholder={ actual }
+                    value={ this.state.date }
+                    error={ this.state.dateError }
+                    onChangeText={ (v) => this.setState({ date: v })}
+                    inputStyle={{ marginLeft: 40, width: Dimensions.get('window').width - 100 }}
+                    bgColor={ "#FE8000" }
+                    labelColor={ 'white'} 
+                    iconColor='white'
+                />
                 <AppButton
                     bgColor={ color }
                     onPress={ () => this.test()}
