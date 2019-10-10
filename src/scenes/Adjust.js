@@ -138,6 +138,7 @@ export default class Adjust extends Component {
         data.forEach( (element) => {
             if (element.advertising.localName === 'BIKE' || element.name === 'Arduino') {
                 newList.push(element)
+                console.log('pushed ekement: ', element)
             }
         })
         return newList
