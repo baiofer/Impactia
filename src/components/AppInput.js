@@ -18,6 +18,7 @@ export default class AppInput extends Component {
         placeholder: PropTypes.string,
         onChangeText: PropTypes.func,
         isPassword: PropTypes.bool,
+        keyboardType: PropTypes.string,
     }
 
     static defaultProps = {
@@ -27,11 +28,12 @@ export default class AppInput extends Component {
         placeholder: 'Text input',
         onChangeText: () => {},
         isPassword: false,
+        keyboardType: 'default',
     }
 
     //RENDER
     render() {
-        const { labelStyle, label, value, onChangeText, placeholder, inputStyle, error, errorStyle, isPassword} = this.props
+        const { labelStyle, label, value, onChangeText, placeholder, inputStyle, error, errorStyle, isPassword, keyboardType } = this.props
         return (
             <View style={ styles.container }>
                 { label ? 
@@ -51,6 +53,7 @@ export default class AppInput extends Component {
                         [styles.input, inputStyle] }
                     underlineColorAndroid={ 'transparent' }
                     secureTextEntry={ isPassword }
+                    keyboardType={ keyboardType }
                 />
                 { error ? 
                     <Text 

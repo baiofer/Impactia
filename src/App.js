@@ -12,7 +12,7 @@ import MyMouvements from './scenes/MyMouvements'
 import Adjust from './scenes/Adjust'
 import Menu from './scenes/Menu'
 //React Native Router Flux imports
-import { Actions, Router, Scene } from 'react-native-router-flux'
+import { Actions, Router, Scene, Tabs } from 'react-native-router-flux'
 //Icons imports
 import Icon from 'react-native-vector-icons/FontAwesome';
 //Firebase imports
@@ -21,6 +21,8 @@ import firebaseConfig from './utils/firebase'
 import firebase from '@firebase/app'
 import '@firebase/auth'
 firebase.initializeApp(firebaseConfig)
+//Utils imports
+import * as Utils from './utils'
 
 
 export default class App extends Component {
@@ -31,17 +33,14 @@ export default class App extends Component {
       isLogged: false,
       loaded: false,
       userLogged: '',
+      userUid:'',
     }
   }
 
   //LIVE CYCLE
   componentWillMount() {
     console.ignoredYellowBox = ['Remote debugger']
-    YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
-    //const userLogged = Utils.PersistData.getUserLogged()    
-    //this.setState({
-      //userLogged: userLogged,
-    //})
+    YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])   
   }
 
   async componentDidMount() {
@@ -51,27 +50,31 @@ export default class App extends Component {
           isLogged: true,
           loaded: true,
           userLogged: user.email,
+          userUid: user.uid
         })
-        Alert.alert(
-          'User OK',
-          user.email)
-        //Save userLogged & userUid
-        //Utils.PersistData.setUserLogged(user.email)
-        //Utils.PersistData.setUserUid(user.uid)
       } else {
         this.setState({
           isLogged: false,
           loaded: true,
+          userLogged: '',
+          userUid: '',
         })
       }
+      //Save userLogged & userUid
+      Utils.PersistData.setUserLogged(this.state.userLogged)
+      Utils.PersistData.setUserUid(this.state.userUid)
+      Utils.PersistData.setRefresh('0')
     })
+  }
+
+  selectScene(value) {
+    console.log('TabBarPressed: ', value)
   }
 
   renderTitle(title) {
     return(
       <View style={ styles.titleNav }>
         <Text style={ styles.title }>{ title }</Text>
-        <Text style={ styles.subtitle }>{ this.state.userLogged }</Text>
       </View>
     )
   }
@@ -118,9 +121,9 @@ export default class App extends Component {
             navigationBarStyle={ styles.navBar }
             renderTitle={ this.renderTitle('Menú') }
           />
-          <Scene
+          <Tabs
             key={ 'TabBar' }
-            tabs={ true }
+            //tabs={ true }
             hideNavBar={ false }
             tabBarStyle={ styles.tabBar }
             navTransparent={ true }
@@ -129,18 +132,19 @@ export default class App extends Component {
             activeTintColor='#FE8000'
             inactiveTintColor='white'
             renderLeftButton={ this.renderMenuButton() }
+            tabBarOnPress={ (value) => this.selctScene(value) }
           >
             <Scene 
-              key={'ReadCounter'}
+              key={ 'Actions.ReadCounter({ false })' }
               icon={ TabIcon }
-              iconName='glass'
+              iconName='bicycle'
               colorIcon='#FE8000'
               component={ ReadCounter }
               renderTitle={ this.renderTitle('Leer Contador') }
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'MyMouvements'}
+              key={ 'Actions.MyMouvements({ false })' }
               icon={ TabIcon }
               iconName='list'
               colorIcon='#FE8000'
@@ -149,7 +153,7 @@ export default class App extends Component {
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'Adjust'}
+              key={ 'Actions.Adjust({ false })' }
               icon={ TabIcon }
               iconName='wrench'
               colorIcon='#FE8000'
@@ -157,7 +161,7 @@ export default class App extends Component {
               renderTitle={ this.renderTitle('Ajustes') }
               navigationBarStyle={ styles.navBar }
             />
-          </Scene>
+          </Tabs>
         </Scene>
       </Router> 
     );
@@ -167,9 +171,9 @@ export default class App extends Component {
     return (
       <Router> 
         <Scene key='root'>
-          <Scene
+          <Tabs
             key={ 'TabBar' }
-            tabs={ true }
+            //tabs={ true }
             hideNavBar={ false }
             tabBarStyle={ styles.tabBar }
             navTransparent={ true }
@@ -180,16 +184,16 @@ export default class App extends Component {
             renderLeftButton={ this.renderMenuButton() }
           >
             <Scene 
-              key={'Leer contador'}
+              key={ 'Actions.ReadCounter({ false })' }
               icon={ TabIcon }
-              iconName='glass'
+              iconName='bicycle'
               colorIcon='#FE8000'
               component={ ReadCounter }
               renderTitle={ this.renderTitle('Leer Contador') }
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'Mis movimientos'}
+              key={ 'Actions.MyMouvements({ false })' }
               icon={ TabIcon }
               iconName='list'
               colorIcon='#FE8000'
@@ -198,7 +202,7 @@ export default class App extends Component {
               navigationBarStyle={ styles.navBar }
             />
             <Scene 
-              key={'Ajustes'}
+              key={ 'Actions.Adjust({ false })' }
               icon={ TabIcon }
               iconName='wrench'
               colorIcon='#FE8000'
@@ -206,7 +210,7 @@ export default class App extends Component {
               renderTitle={ this.renderTitle('Ajustes') }
               navigationBarStyle={ styles.navBar }
             />
-          </Scene>
+          </Tabs>
           <Scene
             key={ 'SignIn' }
             component={ SignIn }
@@ -239,7 +243,7 @@ export default class App extends Component {
     if (!loaded) {
       return (<Preloader />)
     }
-    if (isLogged) {
+    if (isLogged && loaded) {
       return (this.renderNavigation2())
     } else {
       return (this.renderNavigation1())

@@ -13,6 +13,7 @@ export default class MyMouvements extends Component {
         super(props)
         this.state = {
             readings: [],
+            refresh: this.props.refresh,
         }
     }
 
@@ -55,13 +56,41 @@ export default class MyMouvements extends Component {
         return totalsCounter
     }
 
+    passCounterToHours(value) {
+        //We pass the counter to time (days, hours, minutes and seconds)
+        const seconds = value % 60
+        const minutesLeft = Math.trunc(value / 60)
+        const minutes = minutesLeft % 60
+        const hours = Math.trunc(minutesLeft / 60)
+        return `${ hours } horas ${ minutes } min. ${ seconds } seg.`
+    }
+
+    putMonth(month) {
+        if (month === '1') return 'ENERO'
+        else if (month === '2') return 'FEBRERO'
+        else if (month === '3') return 'MARZO'
+        else if (month === '4') return 'ABRIL'
+        else if (month === '5') return 'MAYO'
+        else if (month === '6') return 'JUNIO'
+        else if (month === '7') return 'JULIO'
+        else if (month === '8') return 'AGOSTO'
+        else if (month === '9') return 'SEPTIEMBRE'
+        else if (month === '10') return 'OCTUBRE'
+        else if (month === '11') return 'NOVIEMBRE'
+        else if (month === '12') return 'DICIEMBRE'
+        else  return 'ERROR MES'
+    }
+
     renderReading(item) {
         console.log('ItemToShow: ', item)
         if (item.item.counter === 0) return null
+        const timeCounter = this.passCounterToHours(item.item.counter)
         return(
-            
-                <Text style={ styles.textStyle }>{ item.item.month }   { item.item.counter }</Text>
-            
+            <View style={ styles.item }>
+                <Text style={ styles.text1Style }>Mes:  { this.putMonth(item.item.month.toString()) }</Text>
+                <Text style={ styles.text2Style }>   { timeCounter }</Text>
+            </View>
+                
         )
     }
 
@@ -90,13 +119,24 @@ const styles = StyleSheet.create({
         height: 30,
     },
     item: {
-        backgroundColor: 'blue',
+        backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-        height: 50,
-        marginTop: 20,
+        height: 70,
+        marginTop: 5,
+        borderColor: '#FE8000',
+        borderRadius: 5,
+        borderWidth: 1,
+        width: 300,
     },
-    textStyle: {
-        color: 'black',
+    text1Style: {
+        color: '#FE8000',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    text2Style: {
+        color: '#FE8000',
+        fontSize: 12,
+        fontWeight: 'bold',
     }
 })

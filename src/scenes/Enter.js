@@ -8,29 +8,15 @@ import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
 //React Native Router Flux imports
 import { Actions } from 'react-native-router-flux'
-//Imports from Firebase
-import * as firebase from 'firebase'
-//Utils imports
-import * as Utils from '../utils'
 
 
-export default class Menu extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-        }
-    }
-    //Life cycle
-    
+
+export default class Enter extends Component {
+
     //Functions
-    logOut() {
-        //Delete userLogged in AsyncStorage
-        Utils.PersistData.setUserLogged('')
-        Utils.PersistData.setUserUid('')
-        //Logout firebase
-        firebase.auth().signOut()
-        Actions.SignIn()
+    enter() {
+        Actions.ReadCounter()
     }
 
     //Renders
@@ -41,8 +27,8 @@ export default class Menu extends Component {
                     <LogoImage />
                     <AppButton
                         bgColor='#FE8000'
-                        onPress={ () => this.logOut()}
-                        label='LOGOUT'
+                        onPress={ () => this.enter()}
+                        label='Enter app'
                         labelColor='white'
                         iconColor='white'
                     />

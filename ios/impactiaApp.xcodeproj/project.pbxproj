@@ -51,6 +51,7 @@
 		A287A7D454BD44C2A87D0385 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C0D2271AB14A3B9799D0F1 /* libRNVectorIcons.a */; };
 		A438352DA4A845B389CAF47D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4FE5DCA1270943EBAD626474 /* FontAwesome5_Brands.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
+		AE9AB796A9394094B1BC4B5E /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6022EE3256A1471ABA7A20D8 /* libRNCAsyncStorage.a */; };
 		BB0DAC6933364523897FDE46 /* libBleManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55A095A26867400DAB97E6B3 /* libBleManager.a */; };
 		C3A324D6F0F04F10A5519499 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D0399A100B09476895CAC2B0 /* MaterialCommunityIcons.ttf */; };
 		C7F44E8228EF4DD2B7C283CE /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD486F35B5F5448C930FE32F /* MaterialIcons.ttf */; };
@@ -146,6 +147,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
 			remoteInfo = "RNVectorIcons-tvOS";
+		};
+		028114052354BC18008A75AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF47BC2783BA4822A155EE5E /* RNCAsyncStorage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNCAsyncStorage;
 		};
 		028202EF2343EAD3006A932F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -393,12 +401,14 @@
 		52C0D2271AB14A3B9799D0F1 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		55A095A26867400DAB97E6B3 /* libBleManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBleManager.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
+		6022EE3256A1471ABA7A20D8 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8CDC930AA30E4807BF34C701 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		A00C546BDB4641D680DDF081 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		AD486F35B5F5448C930FE32F /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
+		AF47BC2783BA4822A155EE5E /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		C04D4E4C41F54CEA82C0EC33 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		C138611EACA945DE8C6EC56F /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		CA077D73C2EF43E2B1053AD7 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -440,6 +450,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				A287A7D454BD44C2A87D0385 /* libRNVectorIcons.a in Frameworks */,
 				BB0DAC6933364523897FDE46 /* libBleManager.a in Frameworks */,
+				AE9AB796A9394094B1BC4B5E /* libRNCAsyncStorage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +547,7 @@
 				52C0D2271AB14A3B9799D0F1 /* libRNVectorIcons.a */,
 				09ED23DAB06946A0973E0322 /* libRNVectorIcons-tvOS.a */,
 				55A095A26867400DAB97E6B3 /* libBleManager.a */,
+				6022EE3256A1471ABA7A20D8 /* libRNCAsyncStorage.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -545,6 +557,14 @@
 			children = (
 				027515E72343C84900A3988C /* libRNVectorIcons.a */,
 				027515E92343C84900A3988C /* libRNVectorIcons-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		028114022354BC18008A75AC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				028114062354BC18008A75AC /* libRNCAsyncStorage.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -660,6 +680,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				1FE58723B55B400E955BA1AD /* RNVectorIcons.xcodeproj */,
 				297A81419F544CCDB5D28ABF /* BleManager.xcodeproj */,
+				AF47BC2783BA4822A155EE5E /* RNCAsyncStorage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -901,6 +922,10 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 028114022354BC18008A75AC /* Products */;
+					ProjectRef = AF47BC2783BA4822A155EE5E /* RNCAsyncStorage.xcodeproj */;
+				},
+				{
 					ProductGroup = 027515E22343C84900A3988C /* Products */;
 					ProjectRef = 1FE58723B55B400E955BA1AD /* RNVectorIcons.xcodeproj */;
 				},
@@ -991,6 +1016,13 @@
 			fileType = archive.ar;
 			path = "libRNVectorIcons-tvOS.a";
 			remoteRef = 027515E82343C84900A3988C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		028114062354BC18008A75AC /* libRNCAsyncStorage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCAsyncStorage.a;
+			remoteRef = 028114052354BC18008A75AC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		028202F02343EAD3006A932F /* libBleManager.a */ = {
@@ -1356,12 +1388,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = impactiaAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1386,12 +1420,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = impactiaAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1417,6 +1453,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = impactiaApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1441,6 +1478,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = impactiaApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1471,11 +1509,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "impactiaApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1508,11 +1548,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "impactiaApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1544,11 +1586,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "impactiaApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1580,11 +1624,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-ble-manager/ios",
+					"$(SRCROOT)/../node_modules/@react-native-community/async-storage/ios",
 				);
 				INFOPLIST_FILE = "impactiaApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

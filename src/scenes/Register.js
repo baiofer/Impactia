@@ -50,15 +50,13 @@ export default class Register extends Component {
                 loaded: false,
             })
             firebase.auth().createUserWithEmailAndPassword(user, password)
-                .then( () => {
-                    const person = {
-                        email: user,
-                        username: user,
-                        password: password,
-                    }
+                .then( (userReg) => {
+                    //Save userLogged & userUid
+                    Utils.PersistData.setUserLogged(userReg.user.email)
+                    Utils.PersistData.setUserUid(userReg.user.uid)
                     Alert.alert(
                         'Usuario creado', 
-                        user,)
+                        userReg.user.email,)
                 })
                 .catch( (error) => {
                     if (this._isMounted) {
@@ -162,6 +160,7 @@ export default class Register extends Component {
                         value={ this.state.user }
                         error={ this.state.userError }
                         onChangeText={ (v) => this.setState({ user: v })}
+                        keyboardType='email-address'
                     />
                     <AppInput 
                         placeholder= 'Password'

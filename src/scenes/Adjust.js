@@ -11,6 +11,8 @@ import '@firebase/database'
 //Components imports
 import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
+//Utils imports
+import * as Utils from '../utils'
 
 const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => {
     r1 !== r2
@@ -21,8 +23,9 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
 
 
 export default class Adjust extends Component {
-    constructor() {
-        super()
+
+    constructor(props) {
+        super(props)
         this.state = {
             peripherals: new Map(),
             scanning: false,
@@ -47,14 +50,26 @@ export default class Adjust extends Component {
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-        //Para coger el userUid, lo hago desde firebase o lo puedo hacer desde AsyncStorage cuando lo implemente
-        await firebase.auth().onAuthStateChanged( (user) => {
-            if (user !== null) {
-              this.setState({
-                userUid: user.uid,
-              })
-            }
-          })
+        
+        //Cojemos el sistema a leer y el userUid desde AsyncStorage
+        Utils.PersistData.getSystemToRead()
+            .then( (value) => {
+                if (value !== 'none' || value !== '') {
+                    this.setState({
+                        systemToRead: value,
+                    })
+                    console.log('SystemToReadInAdjust: ', this.state.systemToRead)
+                }
+            })
+        Utils.PersistData.getUserUid()
+            .then( (value) => {
+                if (value !== 'none' || value !== '') {
+                    this.setState({
+                        userUid: value,
+                    })
+                    console.log('UserUidInAdjust: ', this.state.userUid)
+                }
+            })
     }
 
     componentWillUnmount() {
@@ -128,6 +143,8 @@ export default class Adjust extends Component {
             reloadComponent: reld,
             systemToRead: item
         })
+        Utils.PersistData.setSystemToRead(item)
+        Utils.PersistData.setRefresh('1')
     }
 
     //We look for only the client sistem.
@@ -138,10 +155,18 @@ export default class Adjust extends Component {
         data.forEach( (element) => {
             if (element.advertising.localName === 'BIKE' || element.name === 'Arduino') {
                 newList.push(element)
-                console.log('pushed ekement: ', element)
+                console.log('pushed element: ', element)
             }
         })
         return newList
+    }
+
+    removeSystem() {
+        Utils.PersistData.setSystemToRead('')
+        this.setState({
+            systemToRead: ''
+        })
+        Utils.PersistData.setRefresh('1')
     }
 
     //We render the activity indicator if necesary
@@ -177,22 +202,10 @@ export default class Adjust extends Component {
         )
     }
 
-    renderListView(dataSource) {
-        if (!this.state.scanning) {
-            <ListView 
-                enableEmptySections={ true }
-                dataSource={ dataSource }
-                renderRow={ (item) => this.renderItem(item) }
-            />
-        }
-    }
-
     renderScanButton(dataSource) {
-        if (this.state.systemToRead !== '') {
-            return(
-                <Text style={{ color: '#FE8000' }}>Ya existe un equipo enlazado { this.state.systemToRead }</Text>
-            )
-        } else {
+        const { systemToRead } = this.state
+        if (systemToRead === '') {
+            console.log('STR: ', systemToRead)
             return(
                 <View style={ styles.container }>
                     <AppButton
@@ -209,17 +222,20 @@ export default class Adjust extends Component {
                     />
                 </View>
             )
-        }
-    }
-
-    renderListView(dataSource) {
-        
-        if (this.state.systemToRead === '') {
-            <ListView 
-                enableEmptySections={ true }
-                dataSource={ dataSource }
-                renderRow={ (item) => this.renderItem(item) }
-            />
+        } else {
+            console.log('STR: ', systemToRead)
+            return(
+                <View>
+                    <Text style={{ color: '#FE8000', marginBottom: 20 }}>Ya existe un equipo enlazado { systemToRead }</Text>
+                    <AppButton
+                        bgColor='#FE8000'
+                        onPress={ () => this.removeSystem()}
+                        label='Desenlazar equipo'
+                        labelColor='white'
+                        iconColor='white'
+                    />
+                </View>
+            )
         }
     }
 

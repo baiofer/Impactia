@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Dimensions } from 'react-native'
+import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Text } from 'react-native'
 //Bluetooth imports
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
@@ -14,7 +14,8 @@ import Moment from 'moment'
 //Components imports
 import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
-import AppInput from '../components/AppInput'
+//Utils imports
+import * as Utils from '../utils'
 
 const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
@@ -22,8 +23,9 @@ const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
 
 
 export default class ReadCounter extends Component {
-    constructor() {
-        super()
+
+    constructor(props) {
+        super(props)
         this.state = {
             scanning: false,
             connected: false,
@@ -31,9 +33,10 @@ export default class ReadCounter extends Component {
             counterReaded: [],
             valueOfCounter: 0,
             userUid: '',
-            systemToRead: '9E39793E-EEDE-49FC-2166-68C760954602',
+            systemToRead: '',
             date: '',
-            dateError: 'Error'
+            dateError: 'Error',
+            refresh: '0',
         }
     }
 
@@ -43,14 +46,25 @@ export default class ReadCounter extends Component {
                 console.log('Módulo inicilizado')
             })
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-        //Para coger el userUid, lo hago desde firebase o lo puedo hacer desde AsyncStorage cuando lo implemente
-        await firebase.auth().onAuthStateChanged( (user) => {
-            if (user !== null) {
-              this.setState({
-                userUid: user.uid,
-              })
-            }
-          })
+        //Cojemos el sistema a leer y el userUid desde AsyncStorage
+        Utils.PersistData.getSystemToRead()
+            .then( (value) => {
+                if (value !== 'none' || value !== '') {
+                    this.setState({
+                        systemToRead: value,
+                    })
+                    console.log('SystemToReadInReadCounter: ', this.state.systemToRead)
+                }
+            })
+        Utils.PersistData.getUserUid()
+            .then( (value) => {
+                if (value !== 'none' || value !== '') {
+                    this.setState({
+                        userUid: value,
+                    })
+                    console.log('UserUidInReadCounter: ', this.state.userUid)
+                }
+            })    
     }
 
     componentWillUnmount() {
@@ -87,6 +101,7 @@ export default class ReadCounter extends Component {
             result *= 10
             result += newValue[z]
         }
+        console.log('ValueOfCounter: ', result)
         //Return only an array with digits valids
         return result
     }
@@ -104,6 +119,7 @@ export default class ReadCounter extends Component {
             hora: hour,
             contador: value
         }
+        console.log('CounterToFirebase: ', reading)
         firebase.database().ref('Client1/Users/' + userUid + '/lecturas/' + date + '_' + hour).set(reading)
         .then( () => {
             Alert.alert(
@@ -233,6 +249,8 @@ export default class ReadCounter extends Component {
                                     })
                                     //When counter is readed, I send to firebase his value and  we put counter to 0
                                     this.saveCounterReaded()
+                                    //Put to true the refresh
+                                    Utils.PersistData.setRefresh('1')
                                     //Write characteristics
                                     BleManager.write(per, ser, cha1, data)
                                     .catch( (error) => {
@@ -292,27 +310,41 @@ export default class ReadCounter extends Component {
         return null
     }
 
-    render() {
+    //If not exits system to read, we put a message
+    renderReadButton() {
         const color = this.state.connected ? 'green' : '#FE8000'
-        const dateNow = Moment()
-        const actualDate = dateNow.format('YYYY-MM-DD')
-        const actualYear = parseInt(actualDate.substring(0, 4))
-        const actualMonth = parseInt(actualDate.substring(5, 7))
-        const actualDay = parseInt(actualDate.substring(8, 10))
-        const actual = actualDay + ' - ' + actualMonth + ' - ' + actualYear
-        return(
-            <View style={ styles.container }>
-                <LogoImage />
-                <AppInput
-                    placeholder={ actual }
-                    value={ this.state.date }
-                    error={ this.state.dateError }
-                    onChangeText={ (v) => this.setState({ date: v })}
-                    inputStyle={{ marginLeft: 40, width: Dimensions.get('window').width - 100 }}
-                    bgColor={ "#FE8000" }
-                    labelColor={ 'white'} 
-                    iconColor='white'
-                />
+        console.log('This.state.refresh: ', this.state.refresh)
+        if (this.state.refresh === '1') {
+            console.log('Hay que refrescar')
+            Utils.PersistData.getSystemToRead()
+                .then( (value) => {
+                    if (value !== '') {
+                        this.setState({
+                            systemToRead: value,
+                            refresh: '0',
+                        })
+                    }
+                })
+            Utils.PersistData.getUserUid()
+                .then( (value) => {
+                    if (value !== '') {
+                        this.setState({
+                            userUid: value,
+                            refresh: '0',
+                        })
+                    }
+                })
+            Utils.PersistData.setRefresh('0')
+        }
+        if (this.state.systemToRead === '') {
+            return(
+                <View style={ styles.texts }>
+                    <Text style={ styles.text1 }>NO HAY SISTEMA ENLAZADO</Text>
+                    <Text style={ styles.text2 }>Vaya a configuración y enlace un sistema</Text>
+                </View>
+            )
+        } else {
+            return(
                 <AppButton
                     bgColor={ color }
                     onPress={ () => this.test()}
@@ -320,6 +352,15 @@ export default class ReadCounter extends Component {
                     labelColor='white'
                     iconColor='white'
                 />
+            )
+        }
+    }
+
+    render() { 
+        return(
+            <View style={ styles.container }>
+                <LogoImage />
+                { this.renderReadButton() }
                 { this.renderActivity() }
             </View>
         )
@@ -334,4 +375,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 30,
     },
+    texts: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    text1: {
+        color: '#FE8000',
+        fontSize: 20,
+        fontWeight: 'bold',
+      },
+      text2: {
+        color: '#FE8000',
+        fontSize: 15,
+      },
 })

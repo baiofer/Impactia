@@ -15,6 +15,8 @@ import { Actions } from 'react-native-router-flux'
 //import * as firebase from 'firebase'
 import firebase from '@firebase/app'
 import '@firebase/auth'
+//Utils imports
+import * as Utils from '../utils'
 
 
 export default class SignIn extends Component {
@@ -95,22 +97,18 @@ export default class SignIn extends Component {
                 loaded: false,
             })
             firebase.auth().signInWithEmailAndPassword(username, password)
-                .then( () => {
+                .then( (user) => {
                     if (this._isMounted) {
                         this.setState({
                             loaded: true,
                         })
                     }
+                    //Save userLogged & userUid
+                    Utils.PersistData.setUserLogged(user.user.email)
+                    Utils.PersistData.setUserUid(user.user.uid)
                     Alert.alert(
                         'User OK',
-                        username)
-                    /*
-                    //Save userLogged & userUid
-                    //Get userUid
-                    const userUid = firebase.auth().currentUser.uid
-                    Utils.PersistData.setUserLogged(username)
-                    Utils.PersistData.setUserUid(userUid)
-                    */
+                        user.user.email)
                     Actions.ReadCounter()
                 })
                 .catch( (error) => {
@@ -122,7 +120,7 @@ export default class SignIn extends Component {
                     if (error.code === 'auth/user-not-found') error.message = 'Usuario no registrado'
                     if (error.code === 'auth/user-disabled') error.message = 'Usuario deshabilitado'
                     Alert.alert(
-                        'Entro AQUI',
+                        'ERROR',
                         error.message)
                 })
         }
@@ -147,6 +145,7 @@ export default class SignIn extends Component {
                         value={ this.state.user }
                         error={ this.state.userError }
                         onChangeText={ (v) => this.setState({ user: v })}
+                        keyboardType='email-address'
                     />
                     <AppInput 
                         placeholder= 'Password'
