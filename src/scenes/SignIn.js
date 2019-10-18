@@ -109,7 +109,11 @@ export default class SignIn extends Component {
                     Alert.alert(
                         'User OK',
                         user.user.email)
-                    Actions.ReadCounter()
+                    Utils.PersistData.getSystemToRead()
+                        .then( (value) => {
+                          if (value === '') Actions.Adjust()
+                          else return Actions.ReadCounter()
+                        })
                 })
                 .catch( (error) => {
                     if (this._isMounted) {

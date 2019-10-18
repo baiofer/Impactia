@@ -82,29 +82,29 @@ export const removeSystemToRead = async () => {
     }
 }
 
-//REFRESH
-export const getRefresh = async () => {
-  let systemToRead = ''
+//CONNEXION OF BLE
+export const getBLEIsConnect = async () => {
+  let bleIsConnect = ''
   try {
-    systemToRead = await AsyncStorage.getItem('refresh') || ''
+    bleIsConnect = await AsyncStorage.getItem('bleIsConnect') || ''
   } catch (error) {
-    console.log('ErrorGetRefresh: ', error.message)
+    console.log('ErrorGetBLEIsConnect: ', error.message)
   }
-  return systemToRead
+  return bleIsConnect
 }
 
-export const setRefresh = async (refresh) => {
+export const setBLEIsConnect = async (bleIsConnect) => {
   try {
-    await AsyncStorage.setItem('refresh', refresh)
+    await AsyncStorage.setItem('bleIsConnect', bleIsConnect)
   } catch (error) {
-    console.log('ErrorSetRefresh: ', error.message)
+    console.log('ErrorSetBLEIsConnect: ', error.message)
   }
 }
 
-export const removeRefresh = async () => {
+export const removeBLEIsConnect = async () => {
   try {
-    await AsyncStorage.removeItem('refresh')
+    await AsyncStorage.removeItem('bleIsConnect')
   } catch (error) {
-    console.log('ErrorRemoveRefresh: ', error.message)
+    console.log('ErrorRemoveBLEIsConnect: ', error.message)
   }
 }

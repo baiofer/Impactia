@@ -1,9 +1,13 @@
 //React imports
 import React, { Component } from 'react'
 //React native imports
-import { Text, View, StyleSheet, FlatList } from 'react-native'
+import { Text, View, StyleSheet, FlatList, Dimensions } from 'react-native'
+//Native base imports
+import { Container, Footer, FooterTab, Button } from 'native-base'
 //Imports from Firebase
 import * as firebase from 'firebase'
+import { Actions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 
@@ -13,11 +17,11 @@ export default class MyMouvements extends Component {
         super(props)
         this.state = {
             readings: [],
-            refresh: this.props.refresh,
         }
     }
 
     componentDidMount() {
+        console.log('ComponentDidMountMyMouvements')
         //Leer datos de Firebase
         const userId = firebase.auth().currentUser.uid
         firebase.database().ref('Client1/Users/' + userId +'/lecturas').once('value')
@@ -94,18 +98,63 @@ export default class MyMouvements extends Component {
         )
     }
 
+    renderTabBar() {
+        return(
+            <Footer>
+                <FooterTab>
+                    <Button 
+                        vertical
+                        onPress={ () => Actions.reset('ReadCounter') }
+                    >
+                        <Icon 
+                            name='bicycle' 
+                            style={{ color: '#FE8000' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: '#FE8000', fontSize: 12 }}>Contador</Text>
+                    </Button>
+                    <Button 
+                        vertical
+                        //onPress={ () => Actions.replace('MyMouvements') }
+                    >
+                        <Icon 
+                            name='list' 
+                            style={{ color: 'grey' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: 'grey', fontSize: 12 }}>Movimientos</Text>
+                    </Button>
+                    <Button 
+                        vertical
+                        onPress={ () => Actions.reset('Adjust') }
+                    >
+                        <Icon 
+                            name='wrench' 
+                            style={{ color: '#FE8000' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: '#FE8000', fontSize: 12 }}>Ajustes</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
+        )
+    }
+
     render() {
         const info = this.selectInformation()
         return(
-            <View style={ styles.container }>
-                <FlatList 
-                    style={{ marginTop: 10 }}
-                    data={ info }
-                    renderItem={ (item) => this.renderReading(item) }
-                    extraData={ this.state }
-                    keyExtractor={ (item) => item.month.toString() }
-                />  
-            </View>
+            <Container style={ styles.container }>
+                <View style={ styles.container }>
+                    <FlatList 
+                        style={{ marginTop: 10 }}
+                        data={ info }
+                        renderItem={ (item) => this.renderReading(item) }
+                        extraData={ this.state }
+                        keyExtractor={ (item) => item.month.toString() }
+                    /> 
+                </View>
+                { this.renderTabBar() } 
+            </Container>
         )
     }
 }
@@ -138,5 +187,10 @@ const styles = StyleSheet.create({
         color: '#FE8000',
         fontSize: 12,
         fontWeight: 'bold',
-    }
+    },
+    tabBarContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        marginBottom: 5,
+    },
 })

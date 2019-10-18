@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 //React Native imports
 import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Text } from 'react-native'
+//Native base imports
+import { Container, Footer, FooterTab, Button } from 'native-base'
 //Bluetooth imports
 import BleManager from 'react-native-ble-manager'
 import { stringToBytes, bytesToString } from 'convert-string'
@@ -16,6 +18,8 @@ import LogoImage from '../components/LogoImage'
 import AppButton from '../components/AppButton'
 //Utils imports
 import * as Utils from '../utils'
+import { Actions } from 'react-native-router-flux'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 const BleManagerModule = NativeModules.BleManager
 const bleManagerEmitter = new NativeEventEmitter(BleManagerModule)
@@ -36,14 +40,19 @@ export default class ReadCounter extends Component {
             systemToRead: '',
             date: '',
             dateError: 'Error',
-            refresh: '0',
         }
     }
 
     async componentDidMount() {
-        BleManager.start({ showAlert: false })
-            .then( () => {
-                console.log('Módulo inicilizado')
+        await Utils.PersistData.getBLEIsConnect()
+            .then( (bleIsConnect) => {
+                if (bleIsConnect === '0') {
+                    BleManager.start({ showAlert: false })
+                        .then( () => {
+                            console.log('Módulo ReadCounter inicilizado')
+                            Utils.PersistData.setBLEIsConnect('1')
+                    })
+                }  
             })
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
         //Cojemos el sistema a leer y el userUid desde AsyncStorage
@@ -109,6 +118,17 @@ export default class ReadCounter extends Component {
     //saveCounterReaded(peripheral) {
     saveCounterReaded() {
         value = this.state.valueOfCounter
+        if (value === 0) {
+            Alert.alert(
+                'El contador está a 0',
+                '',
+                [{
+                    text:'OK',
+                    onPress: () => this.test(),
+                }],
+            )
+            return
+        }
         valueInHours = this.passCounterToHours(value)
         userUid = this.state.userUid
         const dateNew = Moment()
@@ -149,13 +169,14 @@ export default class ReadCounter extends Component {
     }
 
     test() {
-        if (this.state.scanning) return null
+        if (this.state.scanning || (this.state.connected && !this.state.counterIsReaded)) return null
         //If peripheral connected, we disconnect it
         if (this.state.connected) {
             BleManager.disconnect(this.state.systemToRead)
             console.log('Hay que desconectar el equipo')
         //If terminal not connected, we connect it
         } else {
+            console.log('Voy a conectar ', this.state.systemToRead)
             BleManager.connect(this.state.systemToRead)
                 .then( () => {
                     console.log('Connected to ', this.state.systemToRead)
@@ -249,8 +270,6 @@ export default class ReadCounter extends Component {
                                     })
                                     //When counter is readed, I send to firebase his value and  we put counter to 0
                                     this.saveCounterReaded()
-                                    //Put to true the refresh
-                                    Utils.PersistData.setRefresh('1')
                                     //Write characteristics
                                     BleManager.write(per, ser, cha1, data)
                                     .catch( (error) => {
@@ -313,29 +332,6 @@ export default class ReadCounter extends Component {
     //If not exits system to read, we put a message
     renderReadButton() {
         const color = this.state.connected ? 'green' : '#FE8000'
-        console.log('This.state.refresh: ', this.state.refresh)
-        if (this.state.refresh === '1') {
-            console.log('Hay que refrescar')
-            Utils.PersistData.getSystemToRead()
-                .then( (value) => {
-                    if (value !== '') {
-                        this.setState({
-                            systemToRead: value,
-                            refresh: '0',
-                        })
-                    }
-                })
-            Utils.PersistData.getUserUid()
-                .then( (value) => {
-                    if (value !== '') {
-                        this.setState({
-                            userUid: value,
-                            refresh: '0',
-                        })
-                    }
-                })
-            Utils.PersistData.setRefresh('0')
-        }
         if (this.state.systemToRead === '') {
             return(
                 <View style={ styles.texts }>
@@ -356,13 +352,58 @@ export default class ReadCounter extends Component {
         }
     }
 
+    renderTabBar() {
+        return(
+            <Footer>
+                <FooterTab>
+                    <Button 
+                        vertical
+                        //onPress={ () => Actions.replace('ReadCounter') }
+                    >
+                        <Icon 
+                            name='bicycle' 
+                            style={{ color: 'grey' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: 'grey', fontSize: 12 }}>Contador</Text>
+                    </Button>
+                    <Button 
+                        vertical
+                        onPress={ () => Actions.MyMouvements() }
+                    >
+                        <Icon 
+                            name='list' 
+                            style={{ color: '#FE8000' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: '#FE8000', fontSize: 12 }}>Movimientos</Text>
+                    </Button>
+                    <Button 
+                        vertical
+                        onPress={ () => Actions.Adjust() }
+                    >
+                        <Icon 
+                            name='wrench' 
+                            style={{ color: '#FE8000' }}
+                            size={ 30 }
+                        />
+                        <Text style={{ color: '#FE8000', fontSize: 12 }}>Ajustes</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
+        )
+    }
+
     render() { 
         return(
-            <View style={ styles.container }>
-                <LogoImage />
-                { this.renderReadButton() }
-                { this.renderActivity() }
-            </View>
+            <Container style={ styles.container }>
+                <View style={ styles.container }>
+                    <LogoImage />
+                    { this.renderReadButton() }
+                    { this.renderActivity() }
+                </View>
+                { this.renderTabBar() }
+            </Container>
         )
     }
 }

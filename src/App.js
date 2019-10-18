@@ -34,6 +34,7 @@ export default class App extends Component {
       loaded: false,
       userLogged: '',
       userUid:'',
+      systemToRead: '0',
     }
   }
 
@@ -61,9 +62,19 @@ export default class App extends Component {
         })
       }
       //Save userLogged & userUid
+      console.log('Saving UserLogged, UserUid and BleIsConnect')
       Utils.PersistData.setUserLogged(this.state.userLogged)
       Utils.PersistData.setUserUid(this.state.userUid)
-      Utils.PersistData.setRefresh('0')
+    })
+    //Set module BLE not inicialized
+    await Utils.PersistData.setBLEIsConnect('0')
+    //Get systemToRead
+    await Utils.PersistData.getSystemToRead()
+    .then( (value) => {
+      console.log('systemToRead in componentDiDMount: ', value)
+      this.setState({
+        systemToRead: value,
+      })
     })
   }
 
@@ -95,6 +106,7 @@ export default class App extends Component {
     )
   }
 
+  //Access to SignIn. There isn't usserLogged ('')
   renderNavigation1() {
     return (
       <Router> 
@@ -121,96 +133,138 @@ export default class App extends Component {
             navigationBarStyle={ styles.navBar }
             renderTitle={ this.renderTitle('Menú') }
           />
-          <Tabs
-            key={ 'TabBar' }
-            //tabs={ true }
-            hideNavBar={ false }
-            tabBarStyle={ styles.tabBar }
-            navTransparent={ true }
+          <Scene 
+            key={ 'ReadCounter' }
+            icon={ TabIcon }
+            iconName='bicycle'
+            colorIcon='#FE8000'
+            component={ ReadCounter }
+            renderTitle={ this.renderTitle('Leer Contador') }
             navigationBarStyle={ styles.navBar }
-            default={ 'ReadCounter' }
-            activeTintColor='#FE8000'
-            inactiveTintColor='white'
             renderLeftButton={ this.renderMenuButton() }
-            tabBarOnPress={ (value) => this.selctScene(value) }
-          >
-            <Scene 
-              key={ 'Actions.ReadCounter({ false })' }
-              icon={ TabIcon }
-              iconName='bicycle'
-              colorIcon='#FE8000'
-              component={ ReadCounter }
-              renderTitle={ this.renderTitle('Leer Contador') }
-              navigationBarStyle={ styles.navBar }
-            />
-            <Scene 
-              key={ 'Actions.MyMouvements({ false })' }
-              icon={ TabIcon }
-              iconName='list'
-              colorIcon='#FE8000'
-              component={ MyMouvements }
-              renderTitle={ this.renderTitle('Movimientos') }
-              navigationBarStyle={ styles.navBar }
-            />
-            <Scene 
-              key={ 'Actions.Adjust({ false })' }
-              icon={ TabIcon }
-              iconName='wrench'
-              colorIcon='#FE8000'
-              component={ Adjust }
-              renderTitle={ this.renderTitle('Ajustes') }
-              navigationBarStyle={ styles.navBar }
-            />
-          </Tabs>
+          />
+          <Scene 
+            key={ 'MyMouvements' }
+            icon={ TabIcon }
+            iconName='list'
+            colorIcon='#FE8000'
+            component={ MyMouvements }
+            renderTitle={ this.renderTitle('Movimientos') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
+          <Scene 
+            key={ 'Adjust' }
+            icon={ TabIcon }
+            iconName='wrench'
+            colorIcon='#FE8000'
+            component={ Adjust }
+            renderTitle={ this.renderTitle('Ajustes') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
         </Scene>
       </Router> 
     );
   }
 
+  //Access to ReadCounter. There is systemToRead ( != '' )
   renderNavigation2() {
     return (
       <Router> 
         <Scene key='root'>
-          <Tabs
-            key={ 'TabBar' }
-            //tabs={ true }
-            hideNavBar={ false }
-            tabBarStyle={ styles.tabBar }
-            navTransparent={ true }
+          <Scene 
+            key={ 'ReadCounter' }
+            icon={ TabIcon }
+            iconName='bicycle'
+            colorIcon='#FE8000'
+            component={ ReadCounter }
+            renderTitle={ this.renderTitle('Leer Contador') }
             navigationBarStyle={ styles.navBar }
-            default={ 'ReadCounter' }
-            activeTintColor='#FE8000'
-            inactiveTintColor='white'
             renderLeftButton={ this.renderMenuButton() }
-          >
-            <Scene 
-              key={ 'Actions.ReadCounter({ false })' }
-              icon={ TabIcon }
-              iconName='bicycle'
-              colorIcon='#FE8000'
-              component={ ReadCounter }
-              renderTitle={ this.renderTitle('Leer Contador') }
-              navigationBarStyle={ styles.navBar }
-            />
-            <Scene 
-              key={ 'Actions.MyMouvements({ false })' }
-              icon={ TabIcon }
-              iconName='list'
-              colorIcon='#FE8000'
-              component={ MyMouvements }
-              renderTitle={ this.renderTitle('Movimientos') }
-              navigationBarStyle={ styles.navBar }
-            />
-            <Scene 
-              key={ 'Actions.Adjust({ false })' }
-              icon={ TabIcon }
-              iconName='wrench'
-              colorIcon='#FE8000'
-              component={ Adjust }
-              renderTitle={ this.renderTitle('Ajustes') }
-              navigationBarStyle={ styles.navBar }
-            />
-          </Tabs>
+          />
+          <Scene 
+            key={ 'MyMouvements' }
+            icon={ TabIcon }
+            iconName='list'
+            colorIcon='#FE8000'
+            component={ MyMouvements }
+            renderTitle={ this.renderTitle('Movimientos') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
+          <Scene 
+            key={ 'Adjust' }
+            icon={ TabIcon }
+            iconName='wrench'
+            colorIcon='#FE8000'
+            component={ Adjust }
+            renderTitle={ this.renderTitle('Ajustes') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
+          <Scene
+            key={ 'SignIn' }
+            component={ SignIn }
+            navTransparent={ true }
+            title='Iniciar sesión'
+            titleStyle={ styles.title }
+          />
+          <Scene
+            key={ 'Register' }
+            component={ Register }
+            navTransparent={ true }
+            title='Registrarse'
+            titleStyle={ styles.title }
+          />
+          <Scene
+            key={ 'Menu' }
+            component={ Menu }
+            navTransparent={ true }
+            navBarButtonColor={ '#FE8000' }
+            navigationBarStyle={ styles.navBar }
+            renderTitle={ this.renderTitle('Menú') }
+          />
+        </Scene>
+      </Router> 
+    );
+  }
+
+  //Access to Adjust. There isn't systemToRead ( = '' )
+  renderNavigation3() {
+    return (
+      <Router> 
+        <Scene key='root'>
+        <Scene 
+            key={ 'Adjust' }
+            icon={ TabIcon }
+            iconName='wrench'
+            colorIcon='#FE8000'
+            component={ Adjust }
+            renderTitle={ this.renderTitle('Ajustes') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
+          <Scene 
+            key={ 'MyMouvements' }
+            icon={ TabIcon }
+            iconName='list'
+            colorIcon='#FE8000'
+            component={ MyMouvements }
+            renderTitle={ this.renderTitle('Movimientos') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
+          <Scene 
+            key={ 'ReadCounter' }
+            icon={ TabIcon }
+            iconName='bicycle'
+            colorIcon='#FE8000'
+            component={ ReadCounter }
+            renderTitle={ this.renderTitle('Leer Contador') }
+            navigationBarStyle={ styles.navBar }
+            renderLeftButton={ this.renderMenuButton() }
+          />
           <Scene
             key={ 'SignIn' }
             component={ SignIn }
@@ -244,7 +298,11 @@ export default class App extends Component {
       return (<Preloader />)
     }
     if (isLogged && loaded) {
-      return (this.renderNavigation2())
+      console.log('SystemToRead: ', this.state.systemToRead)
+      if (this.state.systemToRead !== '') {
+        if (this.state.systemToRead === '0') return <Preloader/>
+        else return (this.renderNavigation2())
+      } else return (this.renderNavigation3())
     } else {
       return (this.renderNavigation1())
     }
