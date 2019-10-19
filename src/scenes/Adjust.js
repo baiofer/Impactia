@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { StyleSheet, Text, View, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert, Dimensions } from 'react-native'
+import { StyleSheet, Text, View, NativeEventEmitter, NativeModules, ListView, ActivityIndicator, Alert, Platform, PermissionsAndroid } from 'react-native'
 //Native base imports
 import { Container, Footer, FooterTab, Button } from 'native-base'
 //Bluetooth imports
@@ -65,6 +65,22 @@ export default class Adjust extends Component {
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this)) 
+        //For Android only
+        if (Platform.OS === 'android' && Platform.Version >= 23) {
+            PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+                if (result) {
+                  console.log("Permission is OK");
+                } else {
+                  PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+                    if (result) {
+                      console.log("User accept");
+                    } else {
+                      console.log("User refuse");
+                    }
+                  });
+                }
+          });
+        }
         //Get systemToRead and userUid from AsyncStorage
         Utils.PersistData.getSystemToRead()
             .then( (value) => {

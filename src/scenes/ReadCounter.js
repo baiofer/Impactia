@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Text } from 'react-native'
+import { StyleSheet, View, NativeEventEmitter, NativeModules, ActivityIndicator, Alert, Text, Platform, PermissionsAndroid } from 'react-native'
 //Native base imports
 import { Container, Footer, FooterTab, Button } from 'native-base'
 //Bluetooth imports
@@ -55,6 +55,22 @@ export default class ReadCounter extends Component {
                 }  
             })
         this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
+        //For Android only
+        if (Platform.OS === 'android' && Platform.Version >= 23) {
+            PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+                if (result) {
+                  console.log("Permission is OK");
+                } else {
+                  PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION).then((result) => {
+                    if (result) {
+                      console.log("User accept");
+                    } else {
+                      console.log("User refuse");
+                    }
+                  });
+                }
+          });
+        }
         //Cojemos el sistema a leer y el userUid desde AsyncStorage
         Utils.PersistData.getSystemToRead()
             .then( (value) => {

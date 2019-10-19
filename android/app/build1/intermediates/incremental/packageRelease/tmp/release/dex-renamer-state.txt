@@ -1,0 +1,4 @@
+#Wed Oct 09 16:15:38 CEST 2019
+base.0=/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/build/intermediates/transforms/dexMerger/release/0
+path.0=classes.dex
+renamed.0=classes.dex

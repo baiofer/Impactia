@@ -1,0 +1,215 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+MERGED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-15:12
+MERGED from [:react-native-vector-icons] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/release/AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.react:react-native:0.59.9] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3b81f2f9b53e88a3e379d21b582c8b64/AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/ce080571ef4c56221f25396823489911/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/40b1ffbf4c21fa99333859e09f88ad35/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5600a563d45bc5e397ae6aad4b8fbbcb/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6150cd261fc923f5392f9ea74cd9b00b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3d10278cd17ec5f501bb3a74d1b9c5b4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3655253028603205905299ef994b1c0c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/4e2185d2522aaabe03b8a00f3df48607/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/45fcb38667a1a713b9ccad3fa9582b6c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/1a0c79b6160823053dc52c8078241ce9/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/41632cb6099684417024ea549a5d447a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6a7cfddc23ed4be70227111369c25511/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/7bbdef053874a0ab780a8bb8dfbbaaec/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0d1229ac3f72e7d1d9d0229c36c3cf22/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abe8b1f8b0d01ecde1224a8bbee7fd2b/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/381a0811987af49adc8a93ed711600ec/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/03519b6f55ebd47614857a90bcc49398/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/79b34fe075c4a7c340922c25a38d2441/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/48b667d3941c338e254e4cd053a8ab03/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abcd2f7770d8c5e66727f74b37c01849/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/44b8de8d0e40b8b8c123343c4f2282f9/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/9e413ae900def5a254f5550b2fe1b4c3/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d712e9522568f7f1d835259440c0e9b/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/cea1ec382f608a5d2247b8922575bd88/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/d3341fb0dea259d3bbf53335108444ed/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0c052e7ed0b10e5db4d1352586ee7a9c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d2a1a134dfedfd8cdfa7535803452d3/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/eec1be6cff242e2b4529813a4969cc9f/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/28615cd24b997c9ee0767adfdd4754be/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/a3122489d976b8174f8f0c09e30ec075/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/149bdd7ad1350336f98905298bcdf2d8/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/22fd47445979e14740de944b8c1f2daa/AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/2632cd64f9d779fa42c9efb136579e2b/AndroidManifest.xml:2:1-9:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+	package
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:2:3-28
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:1-26:12
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:4:22-64
+application
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:6:5-24:19
+MERGED from [com.facebook.react:react-native:0.59.9] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3b81f2f9b53e88a3e379d21b582c8b64/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.59.9] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3b81f2f9b53e88a3e379d21b582c8b64/AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/381a0811987af49adc8a93ed711600ec/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/381a0811987af49adc8a93ed711600ec/AndroidManifest.xml:22:5-23:19
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/22fd47445979e14740de944b8c1f2daa/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/22fd47445979e14740de944b8c1f2daa/AndroidManifest.xml:11:5-20
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:22:18-91
+	android:label
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:8:7-39
+	android:roundIcon
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:10:7-52
+	android:icon
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:9:7-41
+	android:allowBackup
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:11:7-34
+	android:theme
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:12:7-38
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:7:7-38
+activity#com.impactiaapp.MainActivity
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:13:7-22:18
+	android:label
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:15:9-41
+	android:windowSoftInputMode
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:17:9-51
+	android:configChanges
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:16:9-79
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:14:9-37
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:18:9-21:25
+action#android.intent.action.MAIN
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:19:13-65
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:19:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:20:13-73
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:20:23-70
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:23:7-84
+	android:name
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:23:17-81
+uses-sdk
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+MERGED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:react-native-vector-icons] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-vector-icons] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.59.9] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3b81f2f9b53e88a3e379d21b582c8b64/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.59.9] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3b81f2f9b53e88a3e379d21b582c8b64/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/ce080571ef4c56221f25396823489911/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/ce080571ef4c56221f25396823489911/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/40b1ffbf4c21fa99333859e09f88ad35/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/40b1ffbf4c21fa99333859e09f88ad35/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5600a563d45bc5e397ae6aad4b8fbbcb/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5600a563d45bc5e397ae6aad4b8fbbcb/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6150cd261fc923f5392f9ea74cd9b00b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6150cd261fc923f5392f9ea74cd9b00b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3d10278cd17ec5f501bb3a74d1b9c5b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3d10278cd17ec5f501bb3a74d1b9c5b4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3655253028603205905299ef994b1c0c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/3655253028603205905299ef994b1c0c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/4e2185d2522aaabe03b8a00f3df48607/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/4e2185d2522aaabe03b8a00f3df48607/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/45fcb38667a1a713b9ccad3fa9582b6c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/45fcb38667a1a713b9ccad3fa9582b6c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/1a0c79b6160823053dc52c8078241ce9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/1a0c79b6160823053dc52c8078241ce9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/41632cb6099684417024ea549a5d447a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/41632cb6099684417024ea549a5d447a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6a7cfddc23ed4be70227111369c25511/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/6a7cfddc23ed4be70227111369c25511/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/7bbdef053874a0ab780a8bb8dfbbaaec/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/7bbdef053874a0ab780a8bb8dfbbaaec/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0d1229ac3f72e7d1d9d0229c36c3cf22/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0d1229ac3f72e7d1d9d0229c36c3cf22/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abe8b1f8b0d01ecde1224a8bbee7fd2b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abe8b1f8b0d01ecde1224a8bbee7fd2b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/af65b1a21be69400725f5b6ca3f09f95/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/381a0811987af49adc8a93ed711600ec/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/381a0811987af49adc8a93ed711600ec/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/03519b6f55ebd47614857a90bcc49398/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/03519b6f55ebd47614857a90bcc49398/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/79b34fe075c4a7c340922c25a38d2441/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/79b34fe075c4a7c340922c25a38d2441/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/48b667d3941c338e254e4cd053a8ab03/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/48b667d3941c338e254e4cd053a8ab03/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abcd2f7770d8c5e66727f74b37c01849/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/abcd2f7770d8c5e66727f74b37c01849/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/44b8de8d0e40b8b8c123343c4f2282f9/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/44b8de8d0e40b8b8c123343c4f2282f9/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/9e413ae900def5a254f5550b2fe1b4c3/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/9e413ae900def5a254f5550b2fe1b4c3/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d712e9522568f7f1d835259440c0e9b/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d712e9522568f7f1d835259440c0e9b/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/cea1ec382f608a5d2247b8922575bd88/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/cea1ec382f608a5d2247b8922575bd88/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/d3341fb0dea259d3bbf53335108444ed/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/d3341fb0dea259d3bbf53335108444ed/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0c052e7ed0b10e5db4d1352586ee7a9c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/0c052e7ed0b10e5db4d1352586ee7a9c/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d2a1a134dfedfd8cdfa7535803452d3/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/5d2a1a134dfedfd8cdfa7535803452d3/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/eec1be6cff242e2b4529813a4969cc9f/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/eec1be6cff242e2b4529813a4969cc9f/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/28615cd24b997c9ee0767adfdd4754be/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/28615cd24b997c9ee0767adfdd4754be/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/a3122489d976b8174f8f0c09e30ec075/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/a3122489d976b8174f8f0c09e30ec075/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/149bdd7ad1350336f98905298bcdf2d8/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/149bdd7ad1350336f98905298bcdf2d8/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/22fd47445979e14740de944b8c1f2daa/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/22fd47445979e14740de944b8c1f2daa/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/2632cd64f9d779fa42c9efb136579e2b/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/2632cd64f9d779fa42c9efb136579e2b/AndroidManifest.xml:5:5-7:41
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.BLUETOOTH
+ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:5-68
+	android:name
+		ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:7:22-65
+uses-permission#android.permission.BLUETOOTH_ADMIN
+ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:8:5-74
+	android:name
+		ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:8:22-71
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:9:22-78
+uses-feature#android.hardware.bluetooth_le
+ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:11:5-13:36
+	android:required
+		ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:13:9-33
+	android:name
+		ADDED from [:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/release/AndroidManifest.xml:12:9-53

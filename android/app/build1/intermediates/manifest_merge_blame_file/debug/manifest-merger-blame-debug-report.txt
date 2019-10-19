@@ -1,0 +1,80 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.impactiaapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/debug/AndroidManifest.xml:5:5-77
+11-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/debug/AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:4:5-67
+12-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:4:22-64
+13    <uses-permission android:name="android.permission.BLUETOOTH" />
+13-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-68
+13-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-65
+14    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+14-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-74
+14-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-71
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-81
+15-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:22-78
+16
+17    <uses-feature
+17-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-13:36
+18        android:name="android.hardware.bluetooth_le"
+18-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-53
+19        android:required="false" />
+19-->[:react-native-ble-manager] /Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/node_modules/react-native-ble-manager/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-33
+20
+21    <application
+21-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:6:5-24:19
+22        android:name="com.impactiaapp.MainApplication"
+22-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:7:7-38
+23        android:allowBackup="false"
+23-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:11:7-34
+24        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+24-->[com.android.support:support-compat:28.0.0] /Users/fernandojarilla/.gradle/caches/transforms-2/files-2.1/ccf94a4f227dfa4f17156620e28a8b98/support-compat-28.0.0/AndroidManifest.xml:22:18-91
+25        android:debuggable="true"
+26        android:icon="@mipmap/ic_launcher"
+26-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:9:7-41
+27        android:label="@string/app_name"
+27-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:8:7-39
+28        android:roundIcon="@mipmap/ic_launcher_round"
+28-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:10:7-52
+29        android:testOnly="true"
+30        android:theme="@style/AppTheme"
+30-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:12:7-38
+31        android:usesCleartextTraffic="true" >
+31-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/debug/AndroidManifest.xml:7:18-53
+32        <activity
+32-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:13:7-22:18
+33            android:name="com.impactiaapp.MainActivity"
+33-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:14:9-37
+34            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+34-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:16:9-79
+35            android:label="@string/app_name"
+35-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:15:9-41
+36            android:windowSoftInputMode="adjustResize" >
+36-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:17:9-51
+37            <intent-filter>
+37-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:18:9-21:25
+38                <action android:name="android.intent.action.MAIN" />
+38-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:19:13-65
+38-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:19:21-62
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:20:13-73
+40-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:20:23-70
+41            </intent-filter>
+42        </activity>
+43        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+43-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:23:7-84
+43-->/Users/fernandojarilla/Desktop/CRAFTECH/IMPACTIA/impactiaApp/android/app/src/main/AndroidManifest.xml:23:17-81
+44    </application>
+45
+46</manifest>
