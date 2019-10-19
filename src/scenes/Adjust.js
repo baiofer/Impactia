@@ -40,10 +40,12 @@ export default class Adjust extends Component {
             userUid: '',
             systemToRead: '',
             reloadComponent: false,
+            systemsUsers: [],
         }
     }
 
     async componentDidMount() {
+        //Test if bluetooth is initialized
         await Utils.PersistData.getBLEIsConnect()
             .then( (bleIsConnect) => {
                 console.log('bleIsConnect: ', bleIsConnect)
@@ -55,16 +57,18 @@ export default class Adjust extends Component {
                     })
                 }  
             })
+        //Get table of systems-users, to test if a user can connect one system
+        this.getSystemsUsersTable()
+        //Define handlers
         this.handleDiscover = bleManagerEmitter.addListener('BleManagerDiscoverPeripheral', this.handleDiscoverPeripheral.bind(this))
 
         this.handleStop = bleManagerEmitter.addListener('BleManagerStopScan', this.handleStopScan.bind(this))
 
-        this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this))
-        
-        //Cojemos el sistema a leer y el userUid desde AsyncStorage
+        this.handleDisconnect = bleManagerEmitter.addListener('BleManagerDisconnectPeripheral', this.handleDisconnectedPeripheral.bind(this)) 
+        //Get systemToRead and userUid from AsyncStorage
         Utils.PersistData.getSystemToRead()
             .then( (value) => {
-                if (value !== 'none' || value !== '') {
+                if (value !== '') {
                     this.setState({
                         systemToRead: value,
                     })
@@ -87,6 +91,23 @@ export default class Adjust extends Component {
         this.handleStop.remove()
         this.handleDisconnect.remove()
         //this.handleUpdate.remove()
+    }
+
+    getSystemsUsersTable() {
+        firebase.database().ref('Client1/Systems/').once('value')
+            .then( (snapshot) => {                
+                const readings = snapshot.val()
+                console.log('Datos: ', readings)
+                if (readings === null) return
+                const systemsUsers = Object.keys(readings)
+                    .map( (key) => {
+                        return readings[key]
+                    })
+                console.log('Readings: ', systemsUsers)
+                this.setState({
+                    systemsUsers: systemsUsers,
+                })
+            })
     }
 
     handleDiscoverPeripheral(peripheral) {
@@ -154,9 +175,30 @@ export default class Adjust extends Component {
             systemToRead: item
         })
         Utils.PersistData.setSystemToRead(item)
+        //Generate bound between systemToRead and userUid
+        this.generateBound()
     }
 
-    //We look for only the client sistem.
+    generateBound() {
+        const register = {
+            system: this.state.systemToRead,
+            userUid: this.state.userUid,
+        }
+        firebase.database().ref('Client1/Systems/' + this.state.systemToRead ).set(register)
+        .then( () => {
+            Alert.alert(
+                'Sistema enlazado en BBDD',
+                '',
+            )
+        })
+        .catch( (error) => {
+            Alert.alert(
+                'Error bounding user and system',
+                error)
+        })
+    }
+
+    //We look for only the client sistem, and systems than not have another user in systemsUsers table
     lookForBikeElement(data) {
         if (data === []) return []
         console.log('Lista: ', data)
@@ -168,6 +210,21 @@ export default class Adjust extends Component {
             }
         })
         return newList
+    }
+    testIfUserBoundSystem(elementId) {
+        console.log('Element: ', elementId)
+        var testUser = true
+        const { systemsUsers, userUid } = this.state
+        systemsUsers.forEach( (system) => {
+            if (system.system === elementId) {
+                if (system.userUid === userUid) return testUser = true
+                else {
+                    console.log('No ENLAZABLE')
+                    return testUser = false
+                }
+            }
+        })
+        return testUser
     }
 
     removeSystem() {
@@ -194,12 +251,18 @@ export default class Adjust extends Component {
     //We render the system to read
     renderItem(item) {
         const labelItem = `Seleccionar equipo - ${item.id.substring(0, 8)}`
-        console.log('Item a seleccionar: ', item)
-        const color = item.connected ? 'green' : '#FE8000'
+        const system = this.testIfUserBoundSystem(item.id)
+        if (!system) {
+            Alert.alert(
+                'No se ven sistemas enlazables',
+                '',
+            )
+            return null
+        }
         return(
             <View>
                 <AppButton
-                    bgColor={ color }
+                    bgColor='#FE8000'
                     onPress={ () => this.itemSelected(item)}
                     label={ labelItem }
                     labelColor='white'
@@ -207,14 +270,12 @@ export default class Adjust extends Component {
                 />
                 { this.renderActivity(item) }
             </View>
-            
         )
     }
 
     renderScanButton(dataSource) {
         const { systemToRead } = this.state
         if (systemToRead === '') {
-            console.log('STR: ', systemToRead)
             return(
                 <View style={ styles.container }>
                     <AppButton

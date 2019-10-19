@@ -310,6 +310,10 @@ export default class ReadCounter extends Component {
                             })
                     })
                 .catch( (error) => {
+                    Alert.alert(
+                        'El equipo a leer no está en el alcance',
+                        '',
+                    )
                     console.log('ErrorConnect: ', error)
                 })
         }
