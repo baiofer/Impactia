@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { Linking, StyleSheet, View, Text, Alert, KeyboardAvoidingView } from 'react-native'
+import { Linking, StyleSheet, View, Text, Alert, KeyboardAvoidingView, Dimensions } from 'react-native'
 //Components imports
 import BackgroundImage from '../components/BackgroundImage'
 import AppButton from '../components/AppButton'
@@ -154,48 +154,54 @@ export default class Register extends Component {
                     style={ styles.container }
                     behavior='padding'
                 >
-                    <LogoImage />
-                    <AppInput 
-                        placeholder= 'Email'
-                        value={ this.state.user }
-                        error={ this.state.userError }
-                        onChangeText={ (v) => this.setState({ user: v })}
-                        keyboardType='email-address'
-                    />
-                    <AppInput 
-                        placeholder= 'Password'
-                        value={ this.state.password }
-                        error={ this.state.passwordError }
-                        onChangeText={ (v) => this.setState({ password: v })}
-                    />
-                    <AppInput 
-                        placeholder= 'Confirma el Password'
-                        value={ this.state.repeatPassword }
-                        error={ this.state.repeatPasswordError }
-                        onChangeText={ (v) => this.setState({ repeatPassword: v })}
-                    />
-                    <AppButton
-                        bgColor='#FE8000'
-                        onPress={ () => this.register()}
-                        label='REGISTRO'
-                        labelColor='white'
-                        iconColor='#FE8000'
-                        buttonStyle={ styles.loginButton }
-                    />
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text 
-                            style={{ color: '#FE8000' }}
-                        >
-                            Ya tienes una cuenta?
-                        </Text>
-                        <AppButton
-                            bgColor='transparent'
-                            onPress={ () => this.login() }
-                            label='Iniciar Sesión'
-                            labelColor='#FE8000'
-                            setWidth={ 100 }
-                            buttonStyle={ styles.loginStyle}
+                    <View style={ styles.viewLogo }>
+                        <LogoImage />
+                    </View>
+                    <View style={ styles.viewButtons }>
+                        <AppInput 
+                            placeholder= 'Email'
+                            value={ this.state.user }
+                            error={ this.state.userError }
+                            onChangeText={ (v) => this.setState({ user: v })}
+                            keyboardType='email-address'
                         />
+                        <AppInput 
+                            placeholder= 'Password'
+                            value={ this.state.password }
+                            error={ this.state.passwordError }
+                            onChangeText={ (v) => this.setState({ password: v })}
+                        />
+                        <AppInput 
+                            placeholder= 'Confirma el Password'
+                            value={ this.state.repeatPassword }
+                            error={ this.state.repeatPasswordError }
+                            onChangeText={ (v) => this.setState({ repeatPassword: v })}
+                        />
+                        <AppButton
+                            bgColor='#FE8000'
+                            onPress={ () => this.register()}
+                            label='REGISTRO'
+                            labelColor='white'
+                            iconColor='#FE8000'
+                            buttonStyle={ styles.loginButton }
+                        />
+                    </View>
+                    <View style={ styles.viewFooter }>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text 
+                                style={{ color: '#FE8000' }}
+                            >
+                                Ya tienes una cuenta?
+                            </Text>
+                            <AppButton
+                                bgColor='transparent'
+                                onPress={ () => this.login() }
+                                label='Iniciar Sesión'
+                                labelColor='#FE8000'
+                                setWidth={ 100 }
+                                buttonStyle={ styles.loginStyle}
+                            />
+                        </View>
                     </View>
                 </KeyboardAvoidingView>
             </BackgroundImage> 
@@ -211,6 +217,22 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: 20,
       marginBottom: 30
+    },
+    viewLogo: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 60, 
+        height: (Dimensions.get('window').height / 3) - 80,
+    },
+    viewButtons: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Dimensions.get('window').height / 2,
+    },
+    viewFooter: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 60,
     },
     loginButton: {
         marginBottom: 30    ,

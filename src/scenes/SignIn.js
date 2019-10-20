@@ -1,7 +1,7 @@
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { View, Text, KeyboardAvoidingView, StyleSheet, Alert } from 'react-native'
+import { View, Text, KeyboardAvoidingView, StyleSheet, Alert, Dimensions } from 'react-native'
 //Components imports
 import LogoImage from '../components/LogoImage'
 import BackgroundImage from '../components/BackgroundImage'
@@ -141,32 +141,34 @@ export default class SignIn extends Component {
                     style={ styles.container }
                     behavior='padding'
                 >
-                    <View style={{ marginTop: 20 }}>
+                    <View style={ styles.viewLogo }>
                         <LogoImage />
                     </View>
-                    <AppInput 
-                        placeholder='Usuario'
-                        value={ this.state.user }
-                        error={ this.state.userError }
-                        onChangeText={ (v) => this.setState({ user: v })}
-                        keyboardType='email-address'
-                    />
-                    <AppInput 
-                        placeholder= 'Password'
-                        value={ this.state.password }
-                        error={ this.state.passwordError }
-                        onChangeText={ (v) => this.setState({ password: v })}
-                        isPassword={ true }
-                    />
-                    <AppButton
-                        bgColor='#FE8000'
-                        onPress={ () => this.login() }
-                        label='ENTRAR'
-                        labelColor='white'
-                        iconColor='#FE8000'
-                        buttonStyle={ styles.loginButton }
-                    />
-                    <View style={ styles.container }>
+                    <View style={ styles.viewButton }>
+                        <AppInput 
+                            placeholder='Usuario'
+                            value={ this.state.user }
+                            error={ this.state.userError }
+                            onChangeText={ (v) => this.setState({ user: v })}
+                            keyboardType='email-address'
+                        />
+                        <AppInput 
+                            placeholder= 'Password'
+                            value={ this.state.password }
+                            error={ this.state.passwordError }
+                            onChangeText={ (v) => this.setState({ password: v })}
+                            isPassword={ true }
+                        />
+                        <AppButton
+                            bgColor='#FE8000'
+                            onPress={ () => this.login() }
+                            label='ENTRAR'
+                            labelColor='white'
+                            iconColor='#FE8000'
+                            buttonStyle={ styles.loginButton }
+                        />
+                    </View>
+                    <View style={ styles.viewFooter }>
                         <View style={{ flexDirection: 'row' }}>
                             <Text 
                                 style={{ color: '#FE8000' }}
@@ -197,6 +199,22 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: 30,
     },
+    viewLogo: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 60, 
+        height: (Dimensions.get('window').height / 3) - 80,
+    },
+    viewButtons: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: Dimensions.get('window').height / 2,
+    },
+    viewFooter: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 60,
+    },
     loginButton: {
         marginBottom: 20,
     },
@@ -210,3 +228,4 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     }
   });
+
