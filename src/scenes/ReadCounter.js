@@ -131,7 +131,6 @@ export default class ReadCounter extends Component {
         return result
     }
 
-    //saveCounterReaded(peripheral) {
     saveCounterReaded() {
         value = this.state.valueOfCounter
         if (value === 0) {

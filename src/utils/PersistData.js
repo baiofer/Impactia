@@ -108,3 +108,30 @@ export const removeBLEIsConnect = async () => {
     console.log('ErrorRemoveBLEIsConnect: ', error.message)
   }
 }
+
+  //LANGUAGE
+export const getLanguage = async () => {
+  let language = ''
+  try {
+    language = await AsyncStorage.getItem('language') || ''
+  } catch (error) {
+    console.log('ErrorGetLanguage: ', error.message)
+  }
+  return language
+}
+
+export const setLanguage = async (language) => {
+  try {
+    await AsyncStorage.setItem('language', language)
+  } catch (error) {
+    console.log('ErrorSetLanguage: ', error.message)
+  }
+}
+
+export const removeLanguage = async () => {
+  try {
+    await AsyncStorage.removeItem('language')
+  } catch (error) {
+    console.log('ErrorRemoveLanguage: ', error.message)
+  }
+}

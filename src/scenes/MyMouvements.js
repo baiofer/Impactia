@@ -46,15 +46,11 @@ export default class MyMouvements extends Component {
         if (readings === []) return
         var totalsCounter = [{counter: 0, month: 0}, {counter: 0, month: 1}, {counter: 0, month: 2}, {counter: 0, month: 3}, {counter: 0, month: 4}, {counter: 0, month: 5}, {counter: 0, month: 6}, {counter: 0, month: 7}, {counter: 0, month: 8}, {counter: 0, month: 9}, {counter: 0, month: 10}, {counter: 0, month: 11}, {counter: 0, month: 12}]
         readings.forEach( (read) => {
-            //const read = item.item
-            console.log('Select_read: ', read)
             const indexMonth = parseInt(read.fecha.substring(5, 7))
-            console.log('Select_indexMonth: ', indexMonth)
             totalsCounter[indexMonth] = {
                 counter: totalsCounter[indexMonth].counter + read.contador,
                 month: indexMonth
             }
-            console.log('Select_totalsCounter[]: ', totalsCounter[indexMonth])
         })
         console.log('Total por meses: ', totalsCounter)
         return totalsCounter
@@ -86,7 +82,6 @@ export default class MyMouvements extends Component {
     }
 
     renderReading(item) {
-        console.log('ItemToShow: ', item)
         if (item.item.counter === 0) return null
         const timeCounter = this.passCounterToHours(item.item.counter)
         return(

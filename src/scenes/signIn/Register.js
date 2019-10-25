@@ -1,26 +1,55 @@
+/*
+PANTALLA DE REGISTRO
+
+Dependencias:
+    email-validator
+    react-native-router-flux
+    firebase
+Componentes:
+    LogoImage
+    BackgroundImage
+    AppButton
+    AppInput
+Utilidades:
+    PersistData
+    Constants
+
+Entradas:
+    Ninguna
+Salidas:
+    userLogged (Email del usuario logeado). Guardado enAsyncStorage
+    userUid (Uid de firebase del usuario logueado). Guardado en AsyncStorage
+
+Modificaciones
+    Ninguna
+*/
+
 //React imports
 import React, { Component } from 'react'
 //React Native imports
-import { Linking, StyleSheet, View, Text, Alert, KeyboardAvoidingView, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, Alert, KeyboardAvoidingView, Dimensions } from 'react-native'
 //Components imports
-import BackgroundImage from '../components/BackgroundImage'
-import AppButton from '../components/AppButton'
-import AppInput from '../components/AppInput'
-import LogoImage from '../components/LogoImage'
+import BackgroundImage from '../../components/BackgroundImage'
+import AppButton from '../../components/AppButton'
+import AppInput from '../../components/AppInput'
+import LogoImage from '../../components/LogoImage'
 //Imports from Firebase
-//import * as firebase from 'firebase'
 import firebase from '@firebase/app'
 import '@firebase/auth'
 //React Native Router Flux imports
 import { Actions } from 'react-native-router-flux'
 //Validate.js imports
 import validator from 'email-validator'
+//Utils imports
+import * as Utils from '../../utils'
 
 
 
 export default class Register extends Component {
 
+    language = Utils.Spanish
     _isMounted = false
+
     constructor(props) {
         super(props)
         this.state = {
@@ -32,17 +61,23 @@ export default class Register extends Component {
             repeatPasswordError: '',
         }
     }
+
     //Life cycle
     componentDidMount() {
         this._isMounted = true
+        Utils.PersistData.getLanguage()
+            .then( (value) => {
+                if (value === 'English') {
+                    this.language = value
+                }
+            })
     }
 
     componentWillUnmount() {
         this._isMounted = false
     }
 
-    //Webservice functions FIREBASE
-    //POST user
+    //Register user in Firebase Auth
     postFirebasePerson() {
         const { user, password } = this.state
             //Register in FIREBASE
@@ -54,8 +89,9 @@ export default class Register extends Component {
                     //Save userLogged & userUid
                     Utils.PersistData.setUserLogged(userReg.user.email)
                     Utils.PersistData.setUserUid(userReg.user.uid)
+                    //User registered OK. 
                     Alert.alert(
-                        'Usuario creado', 
+                        this.language.userCreated, 
                         userReg.user.email,)
                 })
                 .catch( (error) => {
@@ -64,14 +100,15 @@ export default class Register extends Component {
                             loaded: true,
                         })
                     }
+                    //If user is already in use, simply go to login in SignIn
                     if (error.message === 'The email address is already in use by another account.') {
                         Alert.alert(
-                            'Usuario ya creado en Firebase', 
+                            this.language.userAlreadyInUse, 
                             error.message,)
                         this.login()
                     } else {
                         Alert.alert(
-                            'Error. Usuario no creado en Firebase', 
+                            this.language.userNotCreated, 
                             error.message,)
                     }
                 })
@@ -83,23 +120,23 @@ export default class Register extends Component {
         let errors = {}
         //Validation of user (email)
         if (!this.state.user) {
-            errors.user = 'Introduce un email'
+            errors.user = this.language.putEmail
             valid = false
         } else if (!validator.validate(this.state.user)) {
-            errors.user = 'Introduce un email válido'
+            errors.user = Utils.Spanish.putValidEmail
             valid = false
         }
         //Validation of password
         if (!this.state.password) {
-            errors.password = 'Introduce un password'
+            errors.password = this.language.putPassword
             valid = false
         } else if (this.state.password.length < 5) {
-            errors.password = 'El password debe tener al menos 6 caracteres'
+            errors.password = this.language.putValidPassword
             valid = false
         }
         //Confirmation of password
         if (this.state.password !== this.state.repeatPassword) {
-            errors.repeatPassword = 'Los passwords deben ser iguales'
+            errors.repeatPassword = this.language.equalsPasswords
             valid = false
         }
         //Update errors for render
@@ -137,19 +174,25 @@ export default class Register extends Component {
         return valid
     }
 
+    //Register User
     register() {
         if (this.validateForm()) {
             this.postFirebasePerson()
         }
     }
 
+    //Return to SignIn
     login() {
         Actions.pop()
     }
 
     render() {
+        const buttonBackgroundColor = Utils.Constants.buttonBackgroundColor
+        const buttonLabelColor = Utils.Constants.buttonLabelColor
+        const backgroundColor = Utils.Constants.backgroundcolor
+        const titleNavColor = Utils.Constants.titleNavColor
         return(
-            <BackgroundImage>
+            <BackgroundImage backgroundColor={ backgroundColor }>
                 <KeyboardAvoidingView 
                     style={ styles.container }
                     behavior='padding'
@@ -159,45 +202,45 @@ export default class Register extends Component {
                     </View>
                     <View style={ styles.viewButtons }>
                         <AppInput 
-                            placeholder= 'Email'
+                            placeholder= { this.language.email }
                             value={ this.state.user }
                             error={ this.state.userError }
                             onChangeText={ (v) => this.setState({ user: v })}
                             keyboardType='email-address'
                         />
                         <AppInput 
-                            placeholder= 'Password'
+                            placeholder= { this.language.password}
                             value={ this.state.password }
                             error={ this.state.passwordError }
                             onChangeText={ (v) => this.setState({ password: v })}
                         />
                         <AppInput 
-                            placeholder= 'Confirma el Password'
+                            placeholder= { this.language.confirmPassword }
                             value={ this.state.repeatPassword }
                             error={ this.state.repeatPasswordError }
                             onChangeText={ (v) => this.setState({ repeatPassword: v })}
                         />
                         <AppButton
-                            bgColor='#FE8000'
+                            bgColor={ buttonBackgroundColor }
                             onPress={ () => this.register()}
-                            label='REGISTRO'
-                            labelColor='white'
-                            iconColor='#FE8000'
+                            label={ this.language.registerButton }
+                            labelColor={ buttonLabelColor }
+                            iconColor={ buttonBackgroundColor }
                             buttonStyle={ styles.loginButton }
                         />
                     </View>
-                    <View style={ styles.viewFooter }>
+                    <View style={ styles.Footer }>
                         <View style={{ flexDirection: 'row' }}>
                             <Text 
-                                style={{ color: '#FE8000' }}
+                                style={{ color: titleNavColor }}
                             >
-                                Ya tienes una cuenta?
+                                { this.language.alreadyHaveACount}
                             </Text>
                             <AppButton
                                 bgColor='transparent'
                                 onPress={ () => this.login() }
-                                label='Iniciar Sesión'
-                                labelColor='#FE8000'
+                                label={ this.language.beginSession }
+                                labelColor={ buttonBackgroundColor }
                                 setWidth={ 100 }
                                 buttonStyle={ styles.loginStyle}
                             />

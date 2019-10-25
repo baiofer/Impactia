@@ -2,7 +2,9 @@
 import React, { Component } from 'react'
 //React native imports
 import { ActivityIndicator, View, StyleSheet, Dimensions } from 'react-native'
+//Components imports
 import LogoImage from '../components/LogoImage'
+import * as Utils from '../utils'
 
 const { height } = Dimensions.get('window')
 
@@ -15,7 +17,7 @@ export default class Preloader extends Component {
                 <ActivityIndicator 
                     style={{ height: 80 }} 
                     size='large' 
-                    color="#FE8000"
+                    color={ Utils.Constants.buttonBackgroundColor }
                 />
             </View>
         )

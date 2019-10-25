@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 //React Native imports
 import { StyleSheet, View, Text, Alert, YellowBox, TouchableOpacity } from 'react-native';
 //Components imports
-import SignIn from './scenes/SignIn';
-import Register from './scenes/Register'
+import SignIn from './scenes/signIn/Signin';
+import Register from './scenes/signIn/Register'
 import ReadCounter from './scenes/ReadCounter'
 import TabIcon from './components/TabIcon'
 import Preloader from './components/Preloader'
@@ -115,15 +115,13 @@ export default class App extends Component {
             key={ 'SignIn' }
             component={ SignIn }
             navTransparent={ true }
-            title='Iniciar sesión'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Iniciar sesión') }
           />
           <Scene
             key={ 'Register' }
             component={ Register }
             navTransparent={ true }
-            title='Registrarse'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Registrarse') }
           />
           <Scene
             key={ 'Menu' }
@@ -207,15 +205,13 @@ export default class App extends Component {
             key={ 'SignIn' }
             component={ SignIn }
             navTransparent={ true }
-            title='Iniciar sesión'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Iniciar sesión') }
           />
           <Scene
             key={ 'Register' }
             component={ Register }
             navTransparent={ true }
-            title='Registrarse'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Registrarse') }
           />
           <Scene
             key={ 'Menu' }
@@ -269,15 +265,13 @@ export default class App extends Component {
             key={ 'SignIn' }
             component={ SignIn }
             navTransparent={ true }
-            title='Iniciar sesión'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Iniciar sesión') }
           />
           <Scene
             key={ 'Register' }
             component={ Register }
             navTransparent={ true }
-            title='Registrarse'
-            titleStyle={ styles.title }
+            renderTitle={ this.renderTitle('Registrarse') }
           />
           <Scene
             key={ 'Menu' }
