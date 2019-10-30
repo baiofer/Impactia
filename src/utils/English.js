@@ -25,3 +25,9 @@ export const passwordForgotten = 'Have you forgotten your password?'
 export const recoverPass = 'Recover password'
 export const invalidEmail = 'The email is invalid'
 export const emailSended = 'An email is sended to your account. Please, follow the instructions.'
+
+//MENU
+export const logout = 'LOGOUT'
+
+//APP.JS
+export const menu = 'Menu'
