@@ -14,7 +14,7 @@
     "convert-string": "^0.1.0",
     "email-validator": "^2.0.4",
     "firebase": "^7.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "native-base": "^2.13.8",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
